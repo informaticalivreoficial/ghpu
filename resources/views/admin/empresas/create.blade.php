@@ -44,13 +44,7 @@
                     </li>                               
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-four-redes-tab" data-toggle="pill" href="#custom-tabs-four-redes" role="tab" aria-controls="custom-tabs-four-redes" aria-selected="false">Redes Sociais</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-four-pedidos-tab" data-toggle="pill" href="#custom-tabs-four-pedidos" role="tab" aria-controls="custom-tabs-four-pedidos" aria-selected="false">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-four-faturas-tab" data-toggle="pill" href="#custom-tabs-four-faturas" role="tab" aria-controls="custom-tabs-four-faturas" aria-selected="false">Faturas</a>
-                    </li>
+                    </li>                    
                 </ul>
             </div>
             
@@ -75,17 +69,6 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-8">
                                 <div class="row mb-2">
-                                    <div class="col-12 col-md-6 col-lg-6"> 
-                                        <div class="form-group">
-                                            <label class="labelforms text-muted"><b>*Responsável Legal:</b></label>
-                                            <select class="form-control" name="user">
-                                                <option value="" selected>Selecione um responsável legal</option> 
-                                                @foreach($users as $user)                                                    
-                                                    <option value="{{ $user->id }}" {{ (old('user') == $user->id ? 'selected' : '') }}>{{ $user->name }} ({{ $user->cpf }})</option>                                                   
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-12 col-md-6 col-lg-6"> 
                                         <div class="form-group">
                                             <label class="labelforms text-muted"><b>*Razão Social:</b></label>

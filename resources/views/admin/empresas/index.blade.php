@@ -40,6 +40,7 @@
                             <th>Logomarca</th>
                             <th>Nome Fantasia</th>
                             <th>CNPJ</th>
+                            <th>Time</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -53,6 +54,7 @@
                             </td>
                             <td>{{$empresa->alias_name}}</td>
                             <td>{{$empresa->document_company}}</td>
+                            <td>00</td>
                             <td>
                                 <input type="checkbox" data-onstyle="success" data-offstyle="warning" data-size="mini" class="toggle-class" data-id="{{ $empresa->id }}" data-toggle="toggle" data-style="slow" data-on="<i class='fas fa-check'></i>" data-off="<i style='color:#fff !important;' class='fas fa-exclamation-triangle'></i>" {{ $empresa->status == true ? 'checked' : ''}}>
                                 @if(!empty($empresa->whatsapp))

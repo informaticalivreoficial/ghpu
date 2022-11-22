@@ -248,43 +248,11 @@ return [
             'icon' => 'fas fa-bars',
         ],
         [
-            'text' => 'Apartamentos',            
-            'icon' => 'fas fa-building',
-            'submenu' => [
-                [
-                    'text' => 'Listar Todos',
-                    'url'  => 'admin/apartamentos',
-                ],
-                [
-                    'text' => 'Criar Novo',
-                    'url'  => 'admin/apartamentos/create',
-                ]
-            ]
-        ],
-        [
-            'text' => 'Reservas',            
-            'icon' => 'fas fa-store',
-            'submenu' => [
-                [
-                    'text' => 'Pendentes',
-                    'url'  => 'admin/reservas-pendentes',
-                ],
-                [
-                    'text' => 'Finalizadas',
-                    'url'  => 'admin/reservas-finalizadas',
-                ]
-            ]
-        ],
-        [
             'text' => 'Usuários',            
             'icon' => 'fas fa-fw fa-users',
             'submenu' => [
                 [
-                    'text' => 'Clientes',
-                    'url'  => 'admin/usuarios',
-                ],
-                [
-                    'text' => 'Time',
+                    'text' => 'Colaboradores',
                     'url'  => 'admin/usuarios/time',
                 ],
                 [
@@ -321,60 +289,15 @@ return [
             ]
         ],
         [
-            'text' => 'Avaliações',
-            'url'  => 'admin/avaliacoes',
-            'icon' => 'fas fa-bullhorn',
-        ], 
-        [
-            'text' => 'Banner Slides',
-            'url'  => 'admin/slides',
-            'icon' => 'fas fa-film',
-        ],
-        [
-            'text' => 'Galerias',
-            'url'  => 'admin/galerias',
-            'icon' => 'fas fa-images',
-        ],
-        [
             'text' => 'Email',            
             'icon' => 'fas fa-fw fa-envelope',
             'submenu' => [
                 [
                     'text' => 'Enviar Email',
                     'url'  => 'admin/email/enviar-email',
-                ],
-                [
-                    'text' => 'Listas',
-                    'url'  => 'admin/listas',
-                ],
-                [
-                    'text' => 'Cadastrar Lista',
-                    'url'  => 'admin/listas/cadastrar',
-                ],
-                [
-                    'text' => 'Cadastrar Email',
-                    'url'  => 'admin/listas/email/cadastrar',
-                ],
+                ],                
             ]
-        ],      
-        [
-            'text' => 'WhatsApp',            
-            'icon' => 'fab fa-fw fa-whatsapp',
-            'submenu' => [
-                [
-                    'text' => 'Listas',
-                    'url'  => 'admin/whatsapp/listas',
-                ],
-                [
-                    'text' => 'Cadastrar Lista',
-                    'url'  => 'admin/whatsapp/listas/cadastrar',
-                ],
-                [
-                    'text' => 'Cadastrar Email',
-                    'url'  => 'admin/whatsapp/numero/cadastrar',
-                ],
-            ]
-        ],
+        ],  
     ],
 
     /*

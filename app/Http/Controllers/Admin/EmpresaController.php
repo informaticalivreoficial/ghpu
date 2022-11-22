@@ -43,7 +43,7 @@ class EmpresaController extends Controller
         $criarEmpresa->fill($request->all());
 
         if(!empty($request->file('logomarca'))){
-            $criarEmpresa->logomarca = $request->file('logomarca')->storeAs('empresas', Str::slug($request->alias_name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('logomarca')->extension());
+            $criarEmpresa->logomarca = $request->file('logomarca')->storeAs(env('AWS_PASTA') . 'empresas', Str::slug($request->alias_name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('logomarca')->extension());
             $criarEmpresa->save();
         }
         
@@ -79,7 +79,7 @@ class EmpresaController extends Controller
         $empresa->fill($request->all());
 
         if(!empty($request->file('logomarca'))){
-            $empresa->logomarca = $request->file('logomarca')->storeAs('empresas', Str::slug($request->alias_name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('logomarca')->extension());
+            $empresa->logomarca = $request->file('logomarca')->storeAs(env('AWS_PASTA') . 'empresas', Str::slug($request->alias_name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('logomarca')->extension());
             $empresa->save();
         }
 

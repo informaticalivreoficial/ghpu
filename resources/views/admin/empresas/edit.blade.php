@@ -51,13 +51,7 @@
                     </li>                               
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-four-redes-tab" data-toggle="pill" href="#custom-tabs-four-redes" role="tab" aria-controls="custom-tabs-four-redes" aria-selected="false">Redes Sociais</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-four-pedidos-tab" data-toggle="pill" href="#custom-tabs-four-pedidos" role="tab" aria-controls="custom-tabs-four-pedidos" aria-selected="false">Pedidos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-four-faturas-tab" data-toggle="pill" href="#custom-tabs-four-faturas" role="tab" aria-controls="custom-tabs-four-faturas" aria-selected="false">Faturas</a>
-                    </li>
+                    </li>                    
                 </ul>
             </div>
             
@@ -69,7 +63,7 @@
                                 <div class="form-group">
                                     <div class="thumb_user_admin">
                                         @php
-                                            if(!empty($empresa->logomarca) && \Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . $empresa->logomarca)){
+                                            if(!empty($empresa->logomarca) && env('AWS_PASTA') . \Illuminate\Support\Facades\Storage::exists($empresa->logomarca)){
                                                 $cover = $empresa->cover();
                                             } else {
                                                 $cover = url(asset('backend/assets/images/image.jpg'));

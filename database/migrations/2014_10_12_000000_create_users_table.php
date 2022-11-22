@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('empresa')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -89,6 +90,8 @@ class CreateUsersTable extends Migration
 
             $table->integer('status')->default('0');
             $table->text('notasadicionais')->nullable();
+
+            $table->foreign('empresa')->references('id')->on('empresas')->onDelete('CASCADE');
         });
     }
 

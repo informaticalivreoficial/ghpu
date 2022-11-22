@@ -63,8 +63,6 @@ class Empresa extends Model
         if(empty($this->logomarca) || !Storage::disk()->exists($this->logomarca)) {
             return url(asset('backend/assets/images/image.jpg'));
         }
-
-        //return Storage::url(Cropper::thumb($this->logomarca, 300, 300));
         return Storage::url($this->logomarca);
     }
 
