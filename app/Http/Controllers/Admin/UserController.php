@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\User as UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Cidades;
+use App\Models\Empresa;
 use App\Models\Estados;
 use App\Models\User;
 use Carbon\Carbon;
@@ -57,11 +58,13 @@ class UserController extends Controller
     public function create()
     {
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
-        $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get();        
+        $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get(); 
+        $empresas = Empresa::orderBy('alias_name', 'ASC')->available()->get();      
 
         return view('admin.users.create',[
             'estados' => $estados,
-            'cidades' => $cidades
+            'cidades' => $cidades,
+            'empresas' => $empresas
         ]);
     }
     
@@ -82,14 +85,16 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::where('id', $id)->first();    
+        $user = User::where('id', $id)->first();   
+        $empresas = Empresa::orderBy('alias_name', 'ASC')->available()->get(); 
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get(); 
         
         return view('admin.users.edit', [
             'user' => $user,
             'estados' => $estados,
-            'cidades' => $cidades
+            'cidades' => $cidades,
+            'empresas' => $empresas
         ]);
     }
 
@@ -106,13 +111,6 @@ class UserController extends Controller
         
         if(Carbon::parse($nasc)->age < 18){
             return redirect()->back()->with(['color' => 'danger', 'message' => 'Data de nascimento inválida!']);
-        }
-
-        if($request->estado_civil == 'casado'){
-            $nasc_conjuje = Carbon::createFromFormat('d/m/Y', $request->nasc_conjuje)->format('d-m-Y');
-            if(Carbon::parse($nasc_conjuje)->age < 18){
-                return redirect()->back()->with(['color' => 'danger', 'message' => 'Data de nascimento do conjuje inválida!']);
-            }            
         }
 
         if(!empty($request->file('avatar'))){

@@ -41,9 +41,6 @@
                                     <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Dados Cadastrais</a>
                                 </li>                               
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Dados Complementares</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-four-redes-tab" data-toggle="pill" href="#custom-tabs-four-redes" role="tab" aria-controls="custom-tabs-four-redes" aria-selected="false">Redes Sociais</a>
                                 </li>
                                 <li class="nav-item">
@@ -102,7 +99,7 @@
                                                 </div>
                                                  <div class="col-12 col-md-6 col-lg-4 mb-2"> 
                                                     <div class="form-group">
-                                                        <label class="labelforms text-muted"><b>*Estado Civil</b></label>
+                                                        <label class="labelforms text-muted"><b>Estado Civil</b></label>
                                                         <select class="form-control" name="estado_civil">
                                                             <optgroup label="Cônjuge Obrigatório">
                                                                 <option value="casado" {{ (old('estado_civil') == 'casado' ? 'selected' : '') }}>Casado</option>
@@ -116,13 +113,13 @@
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-4 mb-2"> 
                                                     <div class="form-group">
-                                                        <label class="labelforms text-muted"><b>*CPF</b></label>
+                                                        <label class="labelforms text-muted"><b>CPF</b></label>
                                                         <input type="text" class="form-control cpfmask" placeholder="CPF do Cliente" name="cpf" value="{{ old('cpf') }}"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-4 mb-2"> 
                                                     <div class="form-group">
-                                                        <label class="labelforms text-muted"><b>RG</b></label>
+                                                        <label class="labelforms text-muted"><b>*RG</b></label>
                                                         <input type="text" class="form-control rgmask" placeholder="RG do Cliente" name="rg" value="{{ old('rg') }}"/>
                                                     </div>
                                                 </div>
@@ -148,7 +145,7 @@
                                             <div class="card-header">
                                                 <h4>                          
                                                     <a style="border:none;color: #555;" data-toggle="collapse" data-parent="#accordion" href="#collapseRenda">
-                                                        <i class="nav-icon fas fa-plus mr-2"></i> Renda
+                                                        <i class="nav-icon fas fa-plus mr-2"></i> Empresa
                                                     </a>
                                                 </h4>
                                             </div>
@@ -157,20 +154,19 @@
                                                     <div class="row mb-2">
                                                         <div class="col-12 col-md-4 col-lg-4"> 
                                                             <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Profissão:</b></label>
-                                                                <input type="text" class="form-control" placeholder="Profissão do Cliente" name="profissao" value="{{old('profissao')}}">
+                                                                <label class="labelforms text-muted"><b>*Empresa:</b></label>
+                                                                <select class="form-control" name="empresa">
+                                                                    <option value="" selected>Selecione a Empresa</option> 
+                                                                    @foreach($empresas as $empresa)                                                    
+                                                                        <option value="{{ $empresa->id }}" {{ (old('empresa') == $empresa->id ? 'selected' : '') }}>{{ $empresa->alias_name }}</option>                                                   
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-md-4 col-lg-4"> 
                                                             <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Renda:</b></label>
-                                                                <input type="text" class="form-control mask-money" placeholder="Valores em Reais" name="renda" value="{{old('renda')}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-4 col-lg-4"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Empresa:</b></label>
-                                                                <input type="text" class="form-control" placeholder="Contratante" name="profissao_empresa" value="{{old('profissao_empresa')}}">
+                                                                <label class="labelforms text-muted"><b>Função:</b></label>
+                                                                <input type="text" class="form-control" placeholder="Função" name="funcao" value="{{old('funcao')}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -330,110 +326,6 @@
 
                                     </div> 
                                 </div>
-
-                                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-                                
-                                    <div id="accordion">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h4>
-                                                    <a style="border:none;color: #555;" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-                                                        <i class="nav-icon fas fa-plus mr-2"></i> Cônjuge
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseFive" class="panel-collapse collapse content_spouse show">
-                                                <div class="card-body">
-                                                    <div class="row mb-2">
-                                                        <div class="col-12 col-md-6 col-lg-3"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Tipo de Comunhão:</b></label>
-                                                                <select class="form-control" name="tipo_de_comunhao">
-                                                                    <option value="universal" {{ (old('tipo_de_comunhao') == 'universal' ? 'selected' : '') }}>Comunhão Universal de Bens</option>
-                                                                    <option value="parcial" {{ (old('tipo_de_comunhao') == 'parcial' ? 'selected' : '') }}>Comunhão Parcial de Bens</option>
-                                                                    <option value="total" {{ (old('tipo_de_comunhao') == 'total' ? 'selected' : '') }}>Separação Total de Bens</option>
-                                                                    <option value="final" {{ (old('type_of_communion') == 'final' ? 'selected' : '') }}>Participação Final de Aquestos</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>*Nome</b></label>
-                                                                <input type="text" class="form-control" placeholder="Nome do Cônjuge" name="nome_conjuje" value="{{ old('nome_conjuje') }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 col-lg-3"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>*Data de Nascimento</b></label>
-                                                                <div class="input-group date">
-                                                                    <input type="text" class="form-control datepicker-here" data-language='pt-BR' name="nasc_conjuje" value="{{ old('nasc_conjuje') }}"/>
-                                                                    <div class="input-group-append">
-                                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 col-lg-2"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>*Genero</b></label>
-                                                                <select class="form-control" name="genero_conjuje">
-                                                                    <option value="masculino" {{(old('genero_conjuje') == 'masculino' ? 'selected' : '')}}>Masculino</option>
-                                                                    <option value="feminino" {{(old('genero_conjuje') == 'feminino' ? 'selected' : '')}}>Feminino</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>                                                                                                      
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-12 col-md-6 col-lg-3"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>*CPF</b></label>
-                                                                <input type="text" class="form-control cpfmask" placeholder="CPF do Cônjuge" name="cpf_conjuje" value="{{ old('cpf_conjuje') }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 col-lg-3"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>RG</b></label>
-                                                                <input type="text" class="form-control" placeholder="RG do Cônjuge" name="rg_conjuje" value="{{ old('rg_conjuje') }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 col-lg-3"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Órgão Expedidor</b></label>
-                                                                <input type="text" class="form-control" placeholder="Expedição" name="rg_expedicao_conjuje" value="{{ old('rg_expedicao_conjuje') }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 col-lg-3"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Naturalidade</b></label>
-                                                                <input type="text" class="form-control" placeholder="Cidade de Nascimento do Cônjuge" name="naturalidade_conjuje" value="{{ old('naturalidade_conjuje') }}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-2">
-                                                        <div class="col-12 col-md-4 col-lg-4"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Profissão:</b></label>
-                                                                <input type="text" class="form-control" placeholder="Profissão do Cliente" name="profissao_conjuje" value="{{old('profissao_conjuje')}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-4 col-lg-4"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Renda:</b></label>
-                                                                <input type="text" class="form-control mask-money" placeholder="Valores em Reais" name="renda_conjuje" value="{{old('renda_conjuje')}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-4 col-lg-4"> 
-                                                            <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>Empresa:</b></label>
-                                                                <input type="text" class="form-control" placeholder="Contratante" name="profissao_empresa_conjuje" value="{{old('profissao_empresa_conjuje')}}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 
                                 <div class="tab-pane fade" id="custom-tabs-four-redes" role="tabpanel" aria-labelledby="custom-tabs-four-redes-tab">
                                     <div class="row mb-2 text-muted">
@@ -472,31 +364,13 @@
                                                 <label class="labelforms text-muted"><b>Instagram:</b></label>
                                                 <input type="text" class="form-control text-muted" placeholder="Instagram" name="instagram" value="{{old('instagram')}}">
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                            <div class="form-group">
-                                                <label class="labelforms text-muted"><b>Vimeo:</b></label>
-                                                <input type="text" class="form-control text-muted" placeholder="Vimeo" name="vimeo" value="{{old('vimeo')}}">
-                                            </div>
-                                        </div>
+                                        </div>                                       
                                         <div class="col-12 col-md-6 col-lg-4"> 
                                             <div class="form-group">
                                                 <label class="labelforms text-muted"><b>Linkedin:</b></label>
                                                 <input type="text" class="form-control text-muted" placeholder="Linkedin" name="linkedin" value="{{old('linkedin')}}">
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                            <div class="form-group">
-                                                <label class="labelforms text-muted"><b>Sound Cloud:</b></label>
-                                                <input type="text" class="form-control text-muted" placeholder="Linkedin" name="soundclound" value="{{old('soundclound')}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-4"> 
-                                            <div class="form-group">
-                                                <label class="labelforms text-muted"><b>SnapChat:</b></label>
-                                                <input type="text" class="form-control text-muted" placeholder="SnapChat" name="snapchat" value="{{old('snapchat')}}">
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>                                
                                 <div class="tab-pane fade" id="custom-tabs-four-permissoes" role="tabpanel" aria-labelledby="custom-tabs-four-permissoes-tab">
@@ -507,7 +381,7 @@
                                                 <span class="mr-3"><b>Acesso ao Sistema:</b></span>  
                                                 <div class="form-check d-inline mx-2">
                                                     <input id="editor" class="form-check-input" type="checkbox" name="editor" {{ (old('editor') == 'on' || old('editor') == true ? 'checked' : '') }}>
-                                                    <label for="editor" class="form-check-label">Editor</label>
+                                                    <label for="editor" class="form-check-label">Colaborador</label>
                                                 </div>
                                                 <div class="form-check d-inline mx-2">
                                                     <input id="admin" class="form-check-input" type="checkbox" name="admin" {{ (old('admin') == 'on' || old('admin') == true ? 'checked' : '') }}>
@@ -578,6 +452,8 @@
 <script src="{{url(asset('backend/assets/js/jquery.mask.js'))}}"></script>
 <script>
     $(document).ready(function () { 
+        var $rg = $(".rgmask");
+        $rg.mask('00.000.000-0', {reverse: true});
         var $Cpf = $(".cpfmask");
         $Cpf.mask('000.000.000-00', {reverse: true});
         var $whatsapp = $(".whatsappmask");
@@ -587,9 +463,7 @@
         var $celularmask = $(".celularmask");
         $celularmask.mask('(99) 99999-9999', {reverse: false});
         var $zipcode = $(".mask-zipcode");
-        $zipcode.mask('00.000-000', {reverse: true});
-        var $money = $(".mask-money");
-        $money.mask('R$ 000.000.000.000.000,00', {reverse: true, placeholder: "R$ 0,00"});
+        $zipcode.mask('00.000-000', {reverse: true});        
     });
 </script>    
     <script>
@@ -600,21 +474,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            }); 
-
-            function normalizeSpouse() {
-                if (typeof ($('select[name="estado_civil"]')) !== 'undefined') {
-                    if ($('select[name="estado_civil"]').val() === 'casado' || $('select[name="estado_civil"]').val() === 'separado') {
-                        $('.content_spouse input, .content_spouse select').prop('disabled', false);
-                    } else {
-                        $('.content_spouse input, .content_spouse select').prop('disabled', true);
-                    }
-                }
-            }
-            normalizeSpouse();
-            $('select[name="estado_civil"]').change(function () {
-                normalizeSpouse();
-            });           
+            });        
                     
             function readImage() {
                 if (this.files && this.files[0]) {

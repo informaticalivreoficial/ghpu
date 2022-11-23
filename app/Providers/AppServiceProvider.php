@@ -33,15 +33,7 @@ class AppServiceProvider extends ServiceProvider
         //URL::forceScheme('https');
         Schema::defaultStringLength(191);
         Blade::aliasComponent('admin.components.message', 'message');
-
-        //Newsletter FORM
-        // $newsletter = NewsletterCat::where('sistema', 1)->where('status', 1)->get();
-        // View()->share('newsletterForm', $newsletter);
-
-        //WhatsApp FORM
-        // $whatsapp = WhatsappCat::where('sistema', 1)->where('status', 1)->get();
-        // View()->share('whatsappForm', $whatsapp);
-
+        
         //Links
         $Links = Menu::whereNull('id_pai')->orderby('created_at', 'DESC')
                         ->available()

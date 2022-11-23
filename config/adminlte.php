@@ -252,8 +252,12 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'submenu' => [
                 [
-                    'text' => 'Colaboradores',
+                    'text' => 'Time',
                     'url'  => 'admin/usuarios/time',
+                ],
+                [
+                    'text' => 'Colaboradores',
+                    'url'  => 'admin/usuarios',
                 ],
                 [
                     'text' => 'Criar Novo',
