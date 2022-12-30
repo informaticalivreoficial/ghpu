@@ -243,6 +243,24 @@ return [
             'icon' => 'fas fa-cog',
         ],
         [
+            'text' => 'Ocorrências',            
+            'icon' => 'fas fa-fw fa-file',
+            'submenu' => [
+                [
+                    'text' => 'Listar Ocorrências',
+                    'url'  => 'admin/ocorrencias',
+                ],
+                [
+                    'text' => 'Cadastrar Ocorrência',
+                    'url'  => 'admin/ocorrencias/cadastrar',
+                ],
+                [
+                    'text' => 'Modelos',
+                    'url'  => 'admin/ocorrencias/modelos',
+                ]
+            ]
+        ],
+        [
             'text' => 'Menu',
             'url'  => 'admin/menus',
             'icon' => 'fas fa-bars',

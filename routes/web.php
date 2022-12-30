@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\{
     GaleriaController,
     MenuController,
     NewsletterController,
+    OcorrenciaController,
     ParceiroController,
     ReservaController,
     SitemapController,
@@ -212,6 +213,17 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('empresas/create', [EmpresaController::class, 'create'])->name('empresas.create');
     Route::post('empresas/store', [EmpresaController::class, 'store'])->name('empresas.store');
     Route::get('/empresas', [EmpresaController::class, 'index'])->name('empresas.index');
+
+    //****************************** Ocorrências *******************************************/
+    Route::match(['post', 'get'], 'empresas/fetchCity', [EmpresaController::class, 'fetchCity'])->name('empresas.fetchCity');
+    Route::get('empresas/set-status', [EmpresaController::class, 'empresaSetStatus'])->name('empresas.empresaSetStatus');
+    Route::delete('empresas/deleteon', [EmpresaController::class, 'deleteon'])->name('empresas.deleteon');
+    Route::get('empresas/delete', [EmpresaController::class, 'delete'])->name('empresas.delete');
+    Route::put('ocorrencias/{id}', [EmpresaController::class, 'update'])->name('ocorrencias.update');
+    Route::get('ocorrencias/{id}/edit', [OcorrenciaController::class, 'edit'])->name('ocorrencias.edit');
+    Route::get('ocorrencias/cadastrar', [OcorrenciaController::class, 'create'])->name('ocorrencias.create');
+    Route::post('ocorrencias/store', [OcorrenciaController::class, 'store'])->name('ocorrencias.store');
+    Route::get('/ocorrencias', [OcorrenciaController::class, 'index'])->name('ocorrencias.index');
 
     //****************************** Menu *******************************************/
     Route::get('menus/set-status', [MenuController::class, 'menuSetStatus'])->name('menus.menuSetStatus');
