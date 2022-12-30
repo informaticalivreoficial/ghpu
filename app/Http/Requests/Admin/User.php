@@ -40,7 +40,7 @@ class User extends FormRequest
             'name' => 'required|min:3|max:191',
             'nasc' => 'required|date_format:d/m/Y',
             'genero' => 'required|in:masculino,feminino',
-            'estado_civil' => 'required|in:casado,separado,solteiro,divorciado,viuvo',
+            //'estado_civil' => 'required|in:casado,separado,solteiro,divorciado,viuvo',
             'rg' => (!empty($this->request->all()['id']) ? 'required|min:9|max:12|unique:users,rg,' . $this->request->all()['id'] : 'required|min:9|max:12|unique:users,rg'),
             //'rg' => 'required_if:client,on|min:8|max:12',
             //'rg' => 'required|min:8|max:12',
@@ -52,7 +52,7 @@ class User extends FormRequest
             
             // Access
             'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
-            'password' => (empty($this->request->all()['id']) ? 'required' : ''),
+            //'password' => (empty($this->request->all()['id']) ? 'required' : ''),
             
             // Contact
             'celular' => 'required',                        

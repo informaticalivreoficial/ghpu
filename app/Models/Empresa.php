@@ -53,7 +53,10 @@ class Empresa extends Model
     /**
      * Relacionamentos
      */
-    
+    public function countUsers()
+    {
+        return $this->hasMany(User::class, 'empresa', 'id')->count();
+    }
 
     /**
      * Accerssors and Mutators

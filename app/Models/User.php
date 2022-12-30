@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'autor', 'id');
     }
 
+    public function empresaObject()
+    {
+        return $this->hasOne(Empresa::class, 'id', 'empresa');
+    }
+
     /**
      * Scopes
      */

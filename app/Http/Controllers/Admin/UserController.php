@@ -18,7 +18,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->where('client', '1')->paginate(25);
+        $users = User::orderBy('created_at', 'DESC')
+        ->orderBy('status', 'ASC')
+        ->where('client', '1')
+        ->orWhere('editor', '1')
+        ->paginate(25);
 
         return view('admin.users.index',[
             'users' => $users
@@ -35,7 +39,7 @@ class UserController extends Controller
 
     public function team()
     {
-        $users = User::where('admin', '=', '1')->orWhere('editor', '=', '1')->paginate(12);
+        $users = User::where('admin', '=', '1')->paginate(12);
         return view('admin.users.team', [
             'users' => $users    
         ]);
@@ -72,7 +76,11 @@ class UserController extends Controller
     {
         $data = $request->all();
         if($request->client == '' && $request->admin == '' && $request->editor == '' && $request->superadmin == ''){
-            $data['client'] = 'on';
+            $data['editor'] = 'on';
+        }        
+
+        if($request->password == ''){
+            $data['password'] = bcrypt($request->email);
         }        
 
         $userCreate = User::create($data);

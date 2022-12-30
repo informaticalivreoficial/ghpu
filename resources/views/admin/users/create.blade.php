@@ -100,14 +100,12 @@
                                                  <div class="col-12 col-md-6 col-lg-4 mb-2"> 
                                                     <div class="form-group">
                                                         <label class="labelforms text-muted"><b>Estado Civil</b></label>
-                                                        <select class="form-control" name="estado_civil">
-                                                            <optgroup label="Cônjuge Obrigatório">
-                                                                <option value="casado" {{ (old('estado_civil') == 'casado' ? 'selected' : '') }}>Casado</option>
-                                                                <option value="separado" {{ (old('estado_civil') == 'separado' ? 'selected' : '') }}>Separado</option>
-                                                                <option value="solteiro" {{ (old('estado_civil') == 'solteiro' ? 'selected' : '') }}>Solteiro</option>
-                                                                <option value="divorciado" {{ (old('estado_civil') == 'divorciado' ? 'selected' : '') }}>Divorciado</option>
-                                                                <option value="viuvo" {{ (old('estado_civil') == 'viuvo' ? 'selected' : '') }}>Viúvo(a)</option>
-                                                            </optgroup>
+                                                        <select class="form-control" name="estado_civil">                                                            
+                                                            <option value="solteiro" {{ (old('estado_civil') == 'solteiro' ? 'selected' : '') }}>Solteiro</option>
+                                                            <option value="casado" {{ (old('estado_civil') == 'casado' ? 'selected' : '') }}>Casado</option>
+                                                            <option value="separado" {{ (old('estado_civil') == 'separado' ? 'selected' : '') }}>Separado</option>                                                                
+                                                            <option value="divorciado" {{ (old('estado_civil') == 'divorciado' ? 'selected' : '') }}>Divorciado</option>
+                                                            <option value="viuvo" {{ (old('estado_civil') == 'viuvo' ? 'selected' : '') }}>Viúvo(a)</option>                                                            
                                                         </select>
                                                     </div>
                                                 </div>
@@ -310,7 +308,7 @@
                                                         </div>
                                                         <div class="col-6 col-md-6 col-lg-6"> 
                                                             <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>*Senha:</b></label>
+                                                                <label class="labelforms text-muted"><b>Senha:</b></label>
                                                                 <div class="input-group">
                                                                     <input type="password" class="form-control" id="senha" autocomplete="off" name="password" value="{{ old('senha') }}"/>
                                                                     <div class="input-group-append" id="olho">
@@ -386,10 +384,6 @@
                                                 <div class="form-check d-inline mx-2">
                                                     <input id="admin" class="form-check-input" type="checkbox" name="admin" {{ (old('admin') == 'on' || old('admin') == true ? 'checked' : '') }}>
                                                     <label for="admin" class="form-check-label">Administrativo</label>
-                                                </div>
-                                                <div class="form-check d-inline mx-2">
-                                                    <input id="client" class="form-check-input" type="checkbox"  name="client" {{ (old('client') == 'on' || old('client') == true ? 'checked' : '') }}>
-                                                    <label for="client" class="form-check-label">Cliente</label>
                                                 </div>
                                                 @if(\Illuminate\Support\Facades\Auth::user()->superadmin == 1)
                                                 <div class="form-check d-inline mx-2">

@@ -319,7 +319,7 @@
                                                         </div>
                                                         <div class="col-6 col-md-6 col-lg-6"> 
                                                             <div class="form-group">
-                                                                <label class="labelforms text-muted"><b>*Senha:</b></label>
+                                                                <label class="labelforms text-muted"><b>Senha:</b></label>
                                                                 <div class="input-group">
                                                                     <input type="password" class="form-control" id="senha" name="password" value="{{ old('senha') ?? $user->senha }}"/>
                                                                     <div class="input-group-append" id="olho">
@@ -395,10 +395,6 @@
                                                 <div class="form-check d-inline mx-2">
                                                     <input id="admin" class="form-check-input" type="checkbox" name="admin" {{ (old('admin') == 'on' || old('admin') == true ? 'checked' : ($user->admin == true ? 'checked' : '')) }}>
                                                     <label for="admin" class="form-check-label">Administrativo</label>
-                                                </div>
-                                                <div class="form-check d-inline mx-2">
-                                                    <input id="client" class="form-check-input" type="checkbox"  name="client" {{ (old('client') == 'on' || old('client') == true ? 'checked' : ($user->client == true ? 'checked' : '')) }}>
-                                                    <label for="client" class="form-check-label">Cliente</label>
                                                 </div>
                                                 @if(\Illuminate\Support\Facades\Auth::user()->superadmin == 1)
                                                 <div class="form-check d-inline mx-2">
