@@ -79,68 +79,6 @@ Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
 
 Route::prefix('admin')->middleware('auth')->group( function(){
 
-    //******************************* Newsletter *********************************************/
-    Route::match(['post', 'get'], 'listas/padrao', [NewsletterController::class, 'padraoMark'])->name('listas.padrao');
-    Route::get('listas/set-status', [NewsletterController::class, 'listaSetStatus'])->name('listas.listaSetStatus');
-    Route::get('listas/delete', [NewsletterController::class, 'listaDelete'])->name('listas.delete');
-    Route::delete('listas/deleteon', [NewsletterController::class, 'listaDeleteon'])->name('listas.deleteon');
-    Route::put('listas/{id}', [NewsletterController::class, 'listasUpdate'])->name('listas.update');
-    Route::get('listas/{id}/editar', [NewsletterController::class, 'listasEdit'])->name('listas.edit');
-    Route::get('listas/cadastrar', [NewsletterController::class, 'listasCreate'])->name('listas.create');
-    Route::post('listas/store', [NewsletterController::class, 'listasStore'])->name('listas.store');
-    Route::get('listas', [NewsletterController::class, 'listas'])->name('listas');
-
-    Route::put('listas/email/{id}', [NewsletterController::class, 'newsletterUpdate'])->name('listas.newsletter.update');
-    Route::get('listas/email/{id}/edit', [NewsletterController::class, 'newsletterEdit'])->name('listas.newsletter.edit');
-    Route::get('listas/email/delete', [NewsletterController::class, 'emailDelete'])->name('listas.newsletter.delete');
-    Route::delete('listas/email/deleteon', [NewsletterController::class, 'emailDeleteon'])->name('listas.newsletter.deleteon');
-    Route::get('listas/email/cadastrar', [NewsletterController::class, 'newsletterCreate'])->name('lista.newsletter.create');
-    Route::post('listas/email/store', [NewsletterController::class, 'newsletterStore'])->name('listas.newsletter.store');
-    Route::get('listas/emails/categoria/{categoria}', [NewsletterController::class, 'newsletters'])->name('lista.newsletters');
-
-    //******************************* WhatsApp *********************************************/
-    Route::match(['post', 'get'], 'whatsapp/padrao', [WhatsappController::class, 'padraoMark'])->name('lista.whatsapp.padrao');
-    Route::get('whatsapp/listas/set-status', [WhatsappController::class, 'listaSetStatus'])->name('lista.whatsapp.SetStatus');
-    Route::get('whatsapp/listas/delete', [WhatsappController::class, 'listaDelete'])->name('lista.whatsapp.delete');
-    Route::delete('whatsapp/listas/deleteon', [WhatsappController::class, 'listaDeleteon'])->name('lista.whatsapp.deleteon');
-    Route::put('whatsapp/listas/{id}', [WhatsappController::class, 'listaUpdate'])->name('lista.whatsapp.update');
-    Route::get('whatsapp/listas/{id}/editar', [WhatsappController::class, 'listaEdit'])->name('lista.whatsapp.edit');
-    Route::get('whatsapp/listas/cadastrar', [WhatsappController::class, 'listaCreate'])->name('lista.whatsapp.create');
-    Route::post('whatsapp/listas/store', [WhatsappController::class, 'listaStore'])->name('lista.whatsapp.store');
-    Route::get('whatsapp/listas', [WhatsappController::class, 'listas'])->name('listas.whatsapp');
-
-    Route::put('whatsapp/numero/{id}', [WhatsappController::class, 'numeroUpdate'])->name('lista.numero.update');
-    Route::get('whatsapp/set-status', [WhatsappController::class, 'numeroSetStatus'])->name('lista.numero.SetStatus');
-    Route::get('whatsapp/numero/{id}/edit', [WhatsappController::class, 'numeroEdit'])->name('lista.numero.edit');
-    Route::get('whatsapp/numero/delete', [WhatsappController::class, 'numeroDelete'])->name('lista.numero.delete');
-    Route::delete('whatsapp/numero/deleteon', [WhatsappController::class, 'numeroDeleteon'])->name('lista.numero.deleteon');
-    Route::get('whatsapp/numero/cadastrar', [WhatsappController::class, 'numeroCreate'])->name('lista.numero.create');
-    Route::post('whatsapp/numero/store', [WhatsappController::class, 'numeroStore'])->name('lista.numero.store');
-    Route::get('whatsapp/numeros/categoria/{categoria}', [WhatsappController::class, 'numeros'])->name('lista.numeros');
-
-    //******************* Slides ************************************************/
-    Route::get('slides/set-status', [SlideController::class, 'slideSetStatus'])->name('slides.slideSetStatus');
-    Route::get('slides/delete', [SlideController::class, 'delete'])->name('slides.delete');
-    Route::delete('slides/deleteon', [SlideController::class, 'deleteon'])->name('slides.deleteon');
-    Route::put('slides/{slide}', [SlideController::class, 'update'])->name('slides.update');
-    Route::get('slides/{slide}/edit', [SlideController::class, 'edit'])->name('slides.edit');
-    Route::get('slides/create', [SlideController::class, 'create'])->name('slides.create');
-    Route::post('slides/store', [SlideController::class, 'store'])->name('slides.store');
-    Route::get('slides', [SlideController::class, 'index'])->name('slides.index');
-
-    //******************** Parceiros *********************************************/
-    Route::match(['post', 'get'], 'parceiros/fetchCity', [ParceiroController::class, 'fetchCity'])->name('parceiros.fetchCity');
-    Route::get('parceiros/set-status', [ParceiroController::class, 'parceiroSetStatus'])->name('parceiros.parceiroSetStatus');
-    Route::post('parceiros/image-set-cover', [ParceiroController::class, 'imageSetCover'])->name('parceiros.imageSetCover');
-    Route::delete('parceiros/image-remove', [ParceiroController::class, 'imageRemove'])->name('parceiros.imageRemove');
-    Route::delete('parceiros/deleteon', [ParceiroController::class, 'deleteon'])->name('parceiros.deleteon');
-    Route::get('parceiros/delete', [ParceiroController::class, 'delete'])->name('parceiros.delete');
-    Route::put('parceiros/{id}', [ParceiroController::class, 'update'])->name('parceiros.update');
-    Route::get('parceiros/{id}/edit', [ParceiroController::class, 'edit'])->name('parceiros.edit');
-    Route::get('parceiros/create', [ParceiroController::class, 'create'])->name('parceiros.create');
-    Route::post('parceiros/store', [ParceiroController::class, 'store'])->name('parceiros.store');
-    Route::get('parceiros', [ParceiroController::class, 'index'])->name('parceiros.index');
-
     //******************** Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('admin.gerarxml');
 
@@ -194,17 +132,6 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::post('usuarios/store', [UserController::class, 'store'])->name('users.store');
     Route::get('usuarios', [UserController::class, 'index'])->name('users.index');
 
-    /** Avaliações */
-    Route::get('avaliacoes/set-status', [AvaliacaoController::class, 'avaliacoesSetStatus'])->name('avaliacoes.avaliacoesSetStatus');
-    Route::match(['post', 'get'], 'avaliacoes/fetchCity', [AvaliacaoController::class, 'fetchCity'])->name('avaliacoes.fetchCity');
-    Route::get('avaliacoes/delete', [AvaliacaoController::class, 'delete'])->name('avaliacoes.delete');
-    Route::delete('avaliacoes/deleteon', [AvaliacaoController::class, 'deleteon'])->name('avaliacoes.deleteon');
-    Route::put('avaliacoes/{id}', [AvaliacaoController::class, 'update'])->name('avaliacoes.update');
-    Route::get('avaliacoes/{id}/edit', [AvaliacaoController::class, 'edit'])->name('avaliacoes.edit');
-    Route::get('avaliacoes/create', [AvaliacaoController::class, 'create'])->name('avaliacoes.create');
-    Route::post('avaliacoes/store', [AvaliacaoController::class, 'store'])->name('avaliacoes.store');
-    Route::get('avaliacoes', [AvaliacaoController::class, 'index'])->name('avaliacoes.index');
-
     //****************************** Empresas *******************************************/
     Route::match(['post', 'get'], 'empresas/fetchCity', [EmpresaController::class, 'fetchCity'])->name('empresas.fetchCity');
     Route::get('empresas/set-status', [EmpresaController::class, 'empresaSetStatus'])->name('empresas.empresaSetStatus');
@@ -252,14 +179,14 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     /** Permissões */
     Route::get('permission/delete', [PermissionController::class, 'delete'])->name('permission.delete');
     Route::delete('permission/deleteon', [PermissionController::class, 'deleteon'])->name('permission.deleteon');
-    Route::resource('permissoes', [PermissionController::class, 'index']);
+    //Route::resource('permissoes', [PermissionController::class, 'index']);
 
     /** Perfis */
     Route::get('role/delete', [RoleController::class, 'delete'])->name('role.delete');
     Route::delete('role/deleteon', [RoleController::class, 'deleteon'])->name('role.deleteon');
     Route::get('role/{role}/permissions', [RoleController::class, 'permissions'])->name('role.permissions');
     Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSyn'])->name('role.permissionsSync');
-    Route::resource('perfis', [RoleController::class, 'index']); 
+    //Route::resource('perfis', [RoleController::class, 'index']); 
 
     //******************** Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('gerarxml');
