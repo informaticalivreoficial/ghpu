@@ -20,7 +20,7 @@ class CreateOcorrenciaTemplatesTable extends Migration
             $table->string('titulo');
             $table->longText('content')->nullable();
             $table->integer('status')->nullable();
-            $table->date('update_user')->nullable();
+            $table->integer('update_user')->nullable();
 
             $table->timestamps();
 

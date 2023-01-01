@@ -58,6 +58,11 @@ class Empresa extends Model
         return $this->hasMany(User::class, 'empresa', 'id')->count();
     }
 
+    public function ocorrencias()
+    {
+        return $this->hasMany(Ocorrencia::class, 'empresa', 'id');
+    }
+
     /**
      * Accerssors and Mutators
      */

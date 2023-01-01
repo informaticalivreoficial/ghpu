@@ -215,15 +215,27 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('/empresas', [EmpresaController::class, 'index'])->name('empresas.index');
 
     //****************************** Ocorrências *******************************************/
-    Route::match(['post', 'get'], 'empresas/fetchCity', [EmpresaController::class, 'fetchCity'])->name('empresas.fetchCity');
-    Route::get('empresas/set-status', [EmpresaController::class, 'empresaSetStatus'])->name('empresas.empresaSetStatus');
-    Route::delete('empresas/deleteon', [EmpresaController::class, 'deleteon'])->name('empresas.deleteon');
-    Route::get('empresas/delete', [EmpresaController::class, 'delete'])->name('empresas.delete');
-    Route::put('ocorrencias/{id}', [EmpresaController::class, 'update'])->name('ocorrencias.update');
+    Route::get('ocorrencias/set-status', [OcorrenciaController::class, 'setStatus'])->name('ocorrencias.setStatus');
+    Route::delete('ocorrencias/deleteon', [OcorrenciaController::class, 'deleteon'])->name('ocorrencias.deleteon');
+    Route::get('ocorrencias/delete', [OcorrenciaController::class, 'delete'])->name('ocorrencias.delete');
+    Route::put('ocorrencias/{id}', [OcorrenciaController::class, 'update'])->name('ocorrencias.update');
     Route::get('ocorrencias/{id}/edit', [OcorrenciaController::class, 'edit'])->name('ocorrencias.edit');
     Route::get('ocorrencias/cadastrar', [OcorrenciaController::class, 'create'])->name('ocorrencias.create');
     Route::post('ocorrencias/store', [OcorrenciaController::class, 'store'])->name('ocorrencias.store');
     Route::get('/ocorrencias', [OcorrenciaController::class, 'index'])->name('ocorrencias.index');
+    Route::get('ocorrencias/empresa/{empresa}/view', [OcorrenciaController::class, 'ocorrencias'])->name('ocorrencias.view');
+    Route::get('ocorrencias/{ocorrencia}/view', [OcorrenciaController::class, 'view'])->name('ocorrencia.view');
+    
+    //****************************** Modelos *******************************************/
+    Route::get('ocorrencias/modelos/set-status', [OcorrenciaController::class, 'modeloSetStatus'])->name('modelos.modeloSetStatus');
+    Route::delete('ocorrencias/modelos/deleteon', [OcorrenciaController::class, 'modeloDeleteon'])->name('modelos.deleteon');
+    Route::get('ocorrencias/modelos/delete', [OcorrenciaController::class, 'modeloDelete'])->name('modelos.delete');
+    Route::put('ocorrencias/modelos/{id}', [OcorrenciaController::class, 'modelosUpdate'])->name('modelos.update');
+    Route::get('ocorrencias/modelos/{id}/edit', [OcorrenciaController::class, 'modelosEdit'])->name('modelos.edit');
+    Route::get('ocorrencias/modelos/cadastrar', [OcorrenciaController::class, 'modelosCreate'])->name('modelos.create');
+    Route::post('ocorrencias/modelos/store', [OcorrenciaController::class, 'modelosStore'])->name('modelos.store');
+    Route::get('/ocorrencias/modelos', [OcorrenciaController::class, 'modelos'])->name('modelos.index');
+    Route::match(['post', 'get'], '/ocorrencias/modelos/response', [OcorrenciaController::class, 'modelosResponse'])->name('modelos.response');
 
     //****************************** Menu *******************************************/
     Route::get('menus/set-status', [MenuController::class, 'menuSetStatus'])->name('menus.menuSetStatus');

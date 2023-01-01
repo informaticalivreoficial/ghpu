@@ -21,7 +21,8 @@ class CreateOcorrenciasTable extends Migration
             $table->longText('content')->nullable();
             $table->integer('status')->nullable();
             $table->bigInteger('views')->default(0);
-            $table->date('update_user')->nullable();
+            $table->integer('update_user')->nullable();
+            $table->string('template')->nullable();
 
             $table->timestamps();
 
