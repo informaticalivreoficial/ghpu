@@ -319,6 +319,20 @@ return [
                     'url'  => 'admin/email/enviar-email',
                 ],                
             ]
+        ],
+        [
+            'text' => 'Segurança',            
+            'icon' => 'fas fa-fw fa-lock',
+            'submenu' => [
+                [
+                    'text' => 'Perfis',
+                    'url'  => 'admin/perfis',
+                ],                
+                [
+                    'text' => 'Permissões',
+                    'url'  => 'admin/permissoes',
+                ],
+            ]
         ],  
     ],
 

@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\{
     SlideController,
     WhatsappController
 };
+use App\Http\Controllers\Admin\ACL\PermissionController;
+use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Web\RssFeedController;
 use App\Http\Controllers\Web\SendEmailController;
 use App\Http\Controllers\Web\SendWhatsappController;
@@ -245,41 +247,19 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
     Route::get('menus/create', [MenuController::class, 'create'])->name('menus.create');
     Route::post('menus/store', [MenuController::class, 'store'])->name('menus.store');
-    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');    
 
-    //****************************** Galerias *******************************************/
-    Route::get('galerias/set-status', [GaleriaController::class, 'galeriaSetStatus'])->name('galerias.galeriaSetStatus');
-    Route::delete('galerias/deleteon', [GaleriaController::class, 'deleteon'])->name('galerias.deleteon');
-    Route::post('galerias/image-set-cover', [GaleriaController::class, 'imageSetCover'])->name('galerias.imageSetCover');
-    Route::delete('galerias/image-remove', [GaleriaController::class, 'imageRemove'])->name('galerias.imageRemove');
-    Route::get('galerias/delete', [GaleriaController::class, 'delete'])->name('galerias.delete');
-    Route::put('galerias/{id}', [GaleriaController::class, 'update'])->name('galerias.update');
-    Route::get('galerias/{id}/edit', [GaleriaController::class, 'edit'])->name('galerias.edit');
-    Route::get('galerias/create', [GaleriaController::class, 'create'])->name('galerias.create');
-    Route::post('galerias/store', [GaleriaController::class, 'store'])->name('galerias.store');
-    Route::get('/galerias', [GaleriaController::class, 'index'])->name('galerias.index');
+    /** Permissões */
+    Route::get('permission/delete', [PermissionController::class, 'delete'])->name('permission.delete');
+    Route::delete('permission/deleteon', [PermissionController::class, 'deleteon'])->name('permission.deleteon');
+    Route::resource('permissoes', [PermissionController::class, 'index']);
 
-    /** Reservas */
-    Route::get('reservas/delete', [ReservaController::class, 'delete'])->name('reservas.delete');
-    Route::delete('reservas/deleteon', [ReservaController::class, 'deleteon'])->name('reservas.deleteon');
-    Route::put('reservas/{id}', [ReservaController::class, 'update'])->name('reservas.update');
-    Route::get('reservas/{id}/edit', [ReservaController::class, 'edit'])->name('reservas.edit');
-    Route::get('reservas/create', [ReservaController::class, 'create'])->name('reservas.create');
-    Route::get('reservas-pendentes', [ReservaController::class, 'pendentes'])->name('reservas.pendentes');
-    Route::get('reservas-finalizadas', [ReservaController::class, 'finalizadas'])->name('reservas.finalizadas');
-
-    /** Apartamentos */
-    Route::get('apartamentos/marcadagua', [ApartamentoController::class, 'imageWatermark'])->name('apartamentos.marcadagua');
-    Route::get('apartamentos/delete', [ApartamentoController::class, 'delete'])->name('apartamentos.delete');
-    Route::delete('apartamentos/deleteon', [ApartamentoController::class, 'deleteon'])->name('apartamentos.deleteon');
-    Route::post('apartamentos/image-set-cover', [ApartamentoController::class, 'imageSetCover'])->name('apartamentos.imageSetCover');
-    Route::get('apartamentos/set-status', [ApartamentoController::class, 'apartamentoSetStatus'])->name('apartamentos.SetStatus');
-    Route::delete('apartamentos/image-remove', [ApartamentoController::class, 'imageRemove'])->name('apartamentos.imageRemove');
-    Route::put('apartamentos/{id}', [ApartamentoController::class, 'update'])->name('apartamentos.update');
-    Route::get('apartamentos/{id}/edit', [ApartamentoController::class, 'edit'])->name('apartamentos.edit');
-    Route::get('apartamentos/create', [ApartamentoController::class, 'create'])->name('apartamentos.create');
-    Route::post('apartamentos/store', [ApartamentoController::class, 'store'])->name('apartamentos.store');
-    Route::get('apartamentos', [ApartamentoController::class, 'index'])->name('apartamentos.index');
+    /** Perfis */
+    Route::get('role/delete', [RoleController::class, 'delete'])->name('role.delete');
+    Route::delete('role/deleteon', [RoleController::class, 'deleteon'])->name('role.deleteon');
+    Route::get('role/{role}/permissions', [RoleController::class, 'permissions'])->name('role.permissions');
+    Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSyn'])->name('role.permissionsSync');
+    Route::resource('perfis', [RoleController::class, 'index']); 
 
     //******************** Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('gerarxml');
