@@ -405,7 +405,21 @@
                                             </div>
                                         </div>                                        
                                     </div>
-                                   
+                                    <div class="row mb-2 text-muted">
+                                        <div class="col-sm-12 text-muted">
+                                            <div class="form-group">
+                                                <h5><b>Permissões no Sistema</b></h5>            
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mb-2">
+                                            @foreach($roles as $role)                                        
+                                                <div class="form-check mb-1">
+                                                    <input id="acl_{{ $role->id }}" class="form-check-input" type="checkbox"  name="acl_{{ $role->id }}" {{ ($role->can == 1 ? 'checked' : '') }}>
+                                                    <label for="acl_{{ $role->id }}" class="form-check-label">{{ $role->name }}</label>
+                                                </div>                                        
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

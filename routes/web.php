@@ -179,14 +179,14 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     /** Permissões */
     Route::get('permission/delete', [PermissionController::class, 'delete'])->name('permission.delete');
     Route::delete('permission/deleteon', [PermissionController::class, 'deleteon'])->name('permission.deleteon');
-    //Route::resource('permissoes', [PermissionController::class, 'index']);
+    Route::resource('permission', PermissionController::class);
 
     /** Perfis */
     Route::get('role/delete', [RoleController::class, 'delete'])->name('role.delete');
     Route::delete('role/deleteon', [RoleController::class, 'deleteon'])->name('role.deleteon');
     Route::get('role/{role}/permissions', [RoleController::class, 'permissions'])->name('role.permissions');
-    Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSyn'])->name('role.permissionsSync');
-    //Route::resource('perfis', [RoleController::class, 'index']); 
+    Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSync'])->name('role.permissionsSync');
+    Route::resource('role', RoleController::class); 
 
     //******************** Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('gerarxml');

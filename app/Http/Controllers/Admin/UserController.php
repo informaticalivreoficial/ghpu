@@ -13,6 +13,8 @@ use App\Models\Empresa;
 use App\Models\Estados;
 use App\Models\User;
 use Carbon\Carbon;
+use Spatie\Permission\Exceptions\UnauthorizedException;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -63,12 +65,19 @@ class UserController extends Controller
     {
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get(); 
-        $empresas = Empresa::orderBy('alias_name', 'ASC')->available()->get();      
+        $empresas = Empresa::orderBy('alias_name', 'ASC')->available()->get();    
+        
+        $roles = Role::all();
+
+        foreach($roles as $role) {
+            $role->can = false;
+        }
 
         return view('admin.users.create',[
             'estados' => $estados,
             'cidades' => $cidades,
-            'empresas' => $empresas
+            'empresas' => $empresas,
+            'roles' => $roles
         ]);
     }
     
@@ -88,6 +97,21 @@ class UserController extends Controller
             $userCreate->avatar = $request->file('avatar')->storeAs(env('AWS_PASTA') . 'user', Str::slug($request->name)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('avatar')->extension());
             $userCreate->save();
         }
+
+        $rolesRequest = $request->all();
+        $roles = null;
+        foreach($rolesRequest as $key => $value) {
+            if(Str::is('acl_*', $key) == true){
+                $roles[] = Role::where('id', ltrim($key, 'acl_'))->first();
+            }
+        }
+
+        if(!empty($roles)){
+            $userCreate->syncRoles($roles);
+        } else {
+            $userCreate->syncRoles(null);
+        }
+
         return redirect()->route('users.edit', $userCreate->id)->with(['color' => 'success', 'message' => 'Cadastro realizado com sucesso!']);        
     }
 
@@ -97,12 +121,23 @@ class UserController extends Controller
         $empresas = Empresa::orderBy('alias_name', 'ASC')->available()->get(); 
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get(); 
+
+        $roles = Role::all();
+
+        foreach($roles as $role) {
+            if ($user->hasRole($role->name)){
+                $role->can = true;
+            } else {
+                $role->can = false;
+            }
+        }
         
         return view('admin.users.edit', [
             'user' => $user,
             'estados' => $estados,
             'cidades' => $cidades,
-            'empresas' => $empresas
+            'empresas' => $empresas,
+            'roles' => $roles
         ]);
     }
 
@@ -123,7 +158,6 @@ class UserController extends Controller
 
         if(!empty($request->file('avatar'))){
             Storage::delete($user->avatar);
-            //Cropper::flush($user->avatar);
             $user->avatar = '';
         }
 
@@ -135,6 +169,20 @@ class UserController extends Controller
 
         if(!$user->save()){
             return redirect()->back()->withInput()->withErrors('erro');
+        }
+
+        $rolesRequest = $request->all();
+        $roles = null;
+        foreach($rolesRequest as $key => $value) {
+            if(Str::is('acl_*', $key) == true){
+                $roles[] = Role::where('id', ltrim($key, 'acl_'))->first();
+            }
+        }
+
+        if(!empty($roles)){
+            $user->syncRoles($roles);
+        } else {
+            $user->syncRoles(null);
         }
 
         return redirect()->route('users.edit', $user->id)->with([

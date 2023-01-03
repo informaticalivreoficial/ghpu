@@ -1,29 +1,27 @@
-@extends('admin.master.master')
+@extends('adminlte::page')
+
+@section('title', 'Permissões')
+
+@section('content_header')
+<div class="row mb-2">
+    <div class="col-sm-6">
+        <h1><i class="fas fa-search mr-2"></i> Permissões</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">                    
+            <li class="breadcrumb-item"><a href="{{route('home')}}">Painel de Controle</a></li>
+            <li class="breadcrumb-item active">Permissões</li>
+        </ol>
+    </div>
+</div>
+@stop
 
 @section('content')
 
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1><i class="fas fa-search mr-2"></i> Permissões</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Painel de Controle</a></li>
-                    <li class="breadcrumb-item active">Permissões</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Main content -->
-<section class="content">
 
     <div class="card card-teal card-outline">
         <div class="card-header text-right">
-            <a href="{{route('admin.permission.create')}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Permissão</a>
+            <a href="{{route('permission.create')}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Permissão</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -51,7 +49,7 @@
                             <td>{{$permission->id}}</td>
                             <td>{{$permission->name}}</td>
                             <td>
-                                <a href="{{route('admin.permission.edit',['permission' => $permission->id])}}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
+                                <a href="{{route('permission.edit',['permission' => $permission->id])}}" class="btn btn-xs btn-default"><i class="fas fa-pen"></i></a>
                                 <button type="button" class="btn btn-xs btn-danger text-white j_modal_btn" data-id="{{$permission->id}}" data-toggle="modal" data-target="#modal-default"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>                            
@@ -97,7 +95,6 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-</section>
 
 @endsection
 
@@ -118,7 +115,7 @@
                 $.ajax({
                     type: 'GET',
                     dataType: 'JSON',
-                    url: "{{ route('admin.permission.delete') }}",
+                    url: "{{ route('permission.delete') }}",
                     data: {
                        'id': permission_id
                     },
@@ -126,9 +123,9 @@
                         if(data.error){
                             $('.j_param_data').html(data.error);
                             $('#id_permission').val(data.id);
-                            $('#frm').prop('action','{{ route('admin.permission.deleteon') }}');
+                            $('#frm').prop('action','{{ route('permission.deleteon') }}');
                         }else{
-                            $('#frm').prop('action','{{ route('admin.permission.deleteon') }}');
+                            $('#frm').prop('action','{{ route('permission.deleteon') }}');
                         }
                     }
                 });

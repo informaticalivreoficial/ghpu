@@ -287,6 +287,7 @@ return [
             'text' => 'Empresas',
             'url'  => 'admin/empresas',
             'icon' => 'fas fa-industry',
+            'can' => 'Listar Empresas'
         ],
         [
             'text' => 'Posts',            
@@ -326,11 +327,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Perfis',
-                    'url'  => 'admin/perfis',
+                    'url'  => 'admin/role',
                 ],                
                 [
                     'text' => 'Permissões',
-                    'url'  => 'admin/permissoes',
+                    'url'  => 'admin/permission',
                 ],
             ]
         ],  

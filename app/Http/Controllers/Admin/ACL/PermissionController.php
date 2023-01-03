@@ -55,7 +55,7 @@ class PermissionController extends Controller
         $permission->name = $request->name;
         $permission->save();
 
-        return redirect()->route('admin.permission.index')->with(['color' => 'success', 'message' => 'Permissão cadastrada com sucesso!']);
+        return redirect()->route('permission.index')->with(['color' => 'success', 'message' => 'Permissão cadastrada com sucesso!']);
     }
 
     /**
@@ -108,7 +108,7 @@ class PermissionController extends Controller
         $permission->name = $request->name;
         $permission->save();
 
-        return redirect()->route('admin.permission.edit', [
+        return redirect()->route('permission.edit', [
             'permission' => $permission
         ])->with(['color' => 'success', 'message' => 'Permissão atualizada com sucesso!']);
     }
@@ -116,7 +116,7 @@ class PermissionController extends Controller
     public function delete(Request $request)
     {
         $permission = Permission::where('id', $request->id)->first();
-        $nome = getPrimeiroNome(Auth::user()->name);
+        $nome = \App\Helpers\Renato::getPrimeiroNome(Auth::user()->name);
 
         if(!empty($permission)){
             $json = "<b>$nome</b> você tem certeza que deseja excluir esta permissão?<br> 
@@ -133,7 +133,7 @@ class PermissionController extends Controller
         if(!empty($permission)){
             $permission->delete();
         }
-        return redirect()->route('admin.permission.index')->with(['color' => 'success', 'message' => 'Permissão removida com sucesso!']);
+        return redirect()->route('permission.index')->with(['color' => 'success', 'message' => 'Permissão removida com sucesso!']);
     }
     
 }

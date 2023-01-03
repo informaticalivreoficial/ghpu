@@ -56,7 +56,7 @@ class RoleController extends Controller
         $role->name = $request->name;
         $role->save();
 
-        return redirect()->route('admin.role.index')->with(['color' => 'success', 'message' => 'Perfil cadastrado com sucesso!']);
+        return redirect()->route('role.index')->with(['color' => 'success', 'message' => 'Perfil cadastrado com sucesso!']);
     }
 
     /**
@@ -109,7 +109,7 @@ class RoleController extends Controller
         $role->name = $request->name; 
         $role->save();
 
-        return redirect()->route('admin.role.edit', [
+        return redirect()->route('role.edit', [
             'role' => $role
         ])->with(['color' => 'success', 'message' => 'Perfil atualizado com sucesso!']);
     }
@@ -117,7 +117,7 @@ class RoleController extends Controller
     public function delete(Request $request)
     {
         $role = Role::where('id', $request->id)->first();
-        $nome = getPrimeiroNome(Auth::user()->name);
+        $nome = \App\Helpers\Renato::getPrimeiroNome(Auth::user()->name);
 
         if(!empty($role)){
             $json = "<b>$nome</b> você tem certeza que deseja excluir este perfil?<br> 
@@ -134,7 +134,7 @@ class RoleController extends Controller
         if(!empty($role)){
             $role->delete();
         }
-        return redirect()->route('admin.role.index')->with(['color' => 'success', 'message' => 'Perfil removido com sucesso!']);
+        return redirect()->route('role.index')->with(['color' => 'success', 'message' => 'Perfil removido com sucesso!']);
     }
 
     public function permissions($role)
@@ -171,6 +171,6 @@ class RoleController extends Controller
             $role->syncPermissions(null);
         }
 
-        return redirect()->route('admin.role.permissions', ['role' => $role->id]);
+        return redirect()->route('role.permissions', ['role' => $role->id]);
     }
 }
