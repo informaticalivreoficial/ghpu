@@ -22,6 +22,7 @@ class Empresa extends Model
         'document_company_secondary',
         'status',
         'logomarca',        
+        'link',        
         'notasadicionais',        
         'cep',
         'rua',

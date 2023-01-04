@@ -10,14 +10,13 @@ use App\Mail\Web\AtendimentoRetorno;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\{
-    Apartamento,
     Post,
     CatPost,
     Cidades,
+    Empresa,
     Estados,
     Galeria,
     Newsletter,
-    Parceiro,
     Slide,
     User
 };
@@ -49,22 +48,7 @@ class WebController extends Controller
 
     public function home()
     {
-        $acomodacoes = Apartamento::available()->get();
-        $apartamentos = Apartamento::available()
-                    ->where('exibir_home', 1)
-                    ->inRandomOrder()
-                    ->limit(6)
-                    ->get();
-        $artigos = Post::orderBy('created_at', 'DESC')->where('tipo', 'artigo')
-                    ->postson()
-                    ->limit(6)
-                    ->get();
-        $slides = Slide::orderBy('created_at', 'DESC')
-                    ->available()
-                    ->where('expira', '>=', Carbon::now())
-                    ->get();   
-        $galerias = Galeria::orderBy('created_at', 'DESC')->available()->limit(3)->get();
-        
+        $empresas = Empresa::orderBy('created_at', 'DESC')->available()->limit(4)->get();
         $head = $this->seo->render($this->configService->getConfig()->nomedosite ?? 'Informática Livre',
             $this->configService->getConfig()->descricao ?? 'Informática Livre desenvolvimento de sistemas web desde 2005',
             route('web.home'),
@@ -72,12 +56,8 @@ class WebController extends Controller
         ); 
 
 		return view('web.'.$this->configService->getConfig()->template.'.home',[
-            'head' => $head,            
-            'slides' => $slides,
-            'apartamentos' => $apartamentos,
-            'artigos' => $artigos,
-            'acomodacoes' => $acomodacoes,
-            'galerias' => $galerias
+            'head' => $head,   
+            'empresas' => $empresas,
 		]);
     }
 

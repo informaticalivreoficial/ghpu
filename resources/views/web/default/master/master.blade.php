@@ -3,7 +3,7 @@
 <head>	
     <meta charset="utf-8"/>    
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="language" content="pt-br" /> 
     <meta name="author" content="{{env('DESENVOLVEDOR')}}"/>
     <meta name="designer" content="Renato Montanari">
@@ -18,310 +18,435 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- FAVICON -->
-    <link rel="icon" type="image/png" href="{{$configuracoes->getfaveicon()}}" />
-    <link rel="shortcut icon" href="{{$configuracoes->getfaveicon()}}" type="image/x-icon"/>
-    <link rel="apple-touch-icon" href="{{$configuracoes->getfaveicon()}}"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="{{$configuracoes->getfaveicon()}}"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="{{$configuracoes->getfaveicon()}}"/>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/style.css')}}"/>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/bootstrap-reset.css')}}"/>
 
-    <!-- GOOGLE FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet"/>
-    
-    <!-- CSS LIBRARY -->
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/font-awesome.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/ionicons.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/owl.carousel.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/gallery.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/vit-gallery.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/bootstrap-select.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/bootstrap-datepicker.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('frontend/'.$configuracoes->template.'/assets/css/renato.css')}}" />
-    <!-- MAIN STYLE -->
-    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/styles.css')}}"/> 
-    
-    <style>
-        #HSystemSearchBoxInline{
-            padding-top: 20px !important;
-            padding-botton: 20px !important;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/table-responsive.css')}}"/>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/jquery-ui-1.10.3.css')}}"/>
+
+    <!--file upload-->
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/bootstrap-fileupload.min.css')}}" />
+
+    <!--pickers css-->
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/js/bootstrap-datepicker/css/datepicker-custom.css')}}" />
+
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/renato.css')}}"/>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/css/style-responsive.css')}}"/>
+    <!-- Fontes -->
+    <link href="{{url('frontend/'.$configuracoes->template.'/assets/fonts/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet"/>
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/html5shiv.js')}}"></script>
+        <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/respond.min.js')}}"></script>
+    <![endif]-->
+
+    <!-- Favicon Icon -->
+    <link rel="icon"  type="image/png" href="{{$configuracoes->getfaveicon()}}"/>
+
     @hasSection('css')
         @yield('css')
     @endif
  </head>
  <body>
-
-    <!-- HEADER -->
-    <header class="header-sky">
-        <div class="container">
-            <!--HEADER-TOP-->
-            <div class="header-top">
-                <div class="header-top-left"> 
-                    @if ($configuracoes->email)
-                        <span><i class="fa fa-envelope-o"></i> {{$configuracoes->email}}</span>
-                    @endif               
-                    @if ($configuracoes->whatsapp)
-                        <span><img src="{{url('frontend/'.$configuracoes->template.'/assets/images/zapzap.png')}}" alt="WhatsApp" width="16" height="16" /> {{$configuracoes->whatsapp}}</span>
-                    @endif 
-                </div>
-                <div class="header-top-right">
-                    <ul>
-                        <li class="dropdown"><a href="{{route('web.reservar')}}" title="Efetuar Pré-Reserva" class="dropdown-toggle">Efetuar Pré-Reserva</a></li>                    
-                    </ul>
-                </div>
-            </div>
-            <!-- END/HEADER-TOP -->
+    {{--MODAL DE CARREGAMENTO DO SISTEMA--}}
+    <div class="dialog">
+        <div class="loadsistem">
+            <img src="{{url('frontend/'.$configuracoes->template.'/assets/images/loading.gif')}}" width="36" height="35" alt="Carregando" title="Carregando" />
         </div>
-        <!-- MENU-HEADER -->
-        <div class="menu-header">
-            <nav class="navbar navbar-fixed-top">
-                <div class="container container-topo">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar "></span>
-                            <span class="icon-bar "></span>
-                            <span class="icon-bar "></span>
-                        </button>
-                        
-                        <a class="navbar-brand" href="{{route('web.home')}}" title="{{$configuracoes->nomedosite}}">
+    </div>
+
+    <header>
+        <section class="wrapper header-login">    
+            <div class="row">
+                    <div class="col-sm-4">
+                        <div class="telefone-topo">
+                            @if($configuracoes->telefone1)
+                                <p class="fone-topo"><i class="fa fa-phone"></i> &nbsp;{{$configuracoes->telefone1}}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-sm-8 login-sistema">
+                        @if (Route::has('login'))
+                            <div class="login-colaboradores">                        
+                                @auth
+                                    <p class="boas-vindas">
+                                        Olá {{\App\Helpers\Renato::getPrimeiroNome(auth()->user()->name)}}! &nbsp;
+                                        &nbsp; <a href="{{route('logout')}}">Sair&nbsp; <i class="fa fa-power-off"></i></a>
+                                    </p>
+                                @else
+                                    <form method="post" action="" class="form-inline" role="form">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Colaboradores:</label>
+                                            <input type="text" class="form-control input-lg" name="rg" value="" data-mask="99.999.999-9"/>
+                                            <button class="btn btn-success btn-lg" type="submit" name="sendLogar">Entrar</button>
+                                        </div>                                
+                                    </form>
+                                @endauth                
+                            </div>                            
+                        @endif                            
+                    </div>
+                </div>
+        </section>
+        <section class="wrapper header-logo">
+            <div class="row">
+                <div class="col-sm-3">    
+                    <div class="main-header-logo">
+                        <a href="{{route('web.home')}}">
                             <img src="{{$configuracoes->getLogomarca()}}" alt="{{$configuracoes->nomedosite}}"/>
                         </a>
-                    
-                        
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            @if (!empty($Links) && $Links->count())                            
-                                @foreach($Links as $menuItem)                            
-                                <li {{($menuItem->children && $menuItem->parent ? 'class=dropdown' : '')}}>
-                                    <a {{($menuItem->target == 1 ? 'target=_blank' : '')}} href="{{($menuItem->tipo == 'Página' ? route('web.pagina', [ 'slug' => ($menuItem->post != null ? $menuItem->PostObject->slug : '#') ]) : $menuItem->url)}}" {{($menuItem->children && $menuItem->parent ? 'class=dropdown-toggle data-toggle=dropdown' : '')}}>{{ $menuItem->titulo }}{!!($menuItem->children && $menuItem->parent ? "<b class=\"caret\"></b>" : '')!!}</a>
-                                    @if( $menuItem->children && $menuItem->parent)
-                                    <ul class="dropdown-menu icon-fa-caret-up submenu-hover">
-                                        @foreach($menuItem->children as $subMenuItem)
-                                        <li><a {{($subMenuItem->target == 1 ? 'target=_blank' : '')}} href="{{($subMenuItem->tipo == 'Página' ? route('web.pagina', [ 'slug' => ($subMenuItem->post != null ? $subMenuItem->PostObject->slug : '#') ]) : $subMenuItem->url)}}">{{ $subMenuItem->titulo }}</a></li>                                        
-                                        @endforeach
-                                    </ul>
-                                    @endif
+                    </div>                
+                </div>                
+                <div class="col-sm-9">        
+                    <div class="main-header-menu">   
+                        <div class="mobile_action"></div>             
+                        <ul class="main_header_nav">
+                            <li class="main_header_nav_item"><a href="{{route('web.home')}}">Início</a></li>
+                            <li class="main_header_nav_item"><a href="{{route('web.atendimento')}}">Suporte</a></li>
+                            @if (Route::has('login'))
+                                @auth
+                                <li class="main_header_nav_item"><a href="#">Minha Conta</a>
+                                    <ul class="main_header_nav_sub">
+                                        <li class="main_header_nav_sub_item"><a href="{{route('users.edit',['id' => auth()->user()->id])}}">Editar perfil</a></li>
+                                        <li class="main_header_nav_sub_item"><a href="/pagina/sistema">Sistemas</a></li>
+                                    </ul>                        
                                 </li>
-                                @endforeach
+                                @endauth
                             @endif
-                            <li><a href="{{route('web.atendimento')}}" title="Atendimento">Atendimento</a></li>
-                        </ul>
-                    </div>
+                        </ul>                
+                    </div>                
                 </div>
-            </nav>
-        </div>
-        <!-- END / MENU-HEADER -->
+            </div>
+        </section>
     </header>
-    <!-- END-HEADER -->
 
-    <!-- INÍCIO DO CONTEÚDO DO SITE -->
+    {{-- INÍCIO DO CONTEÚDO DO SITE --}}
     @yield('content')
-    <!-- FIM DO CONTEÚDO DO SITE --> 
+    {{-- FIM DO CONTEÚDO DO SITE --}} 
 
-    <form class="btn-wats" action="{{ route('web.zapchat') }}" method="post" target="_blank">
-        @csrf
-        <div class="balao">
-            <textarea placeholder="Digite Aqui" name="texto"></textarea>
-            <button name="sendwhats" type="submit">Enviar</button>
-        </div>
-    </form>
-        
-    <div class="whatsapp-footer j_btnwhats">
-        <a>
-            <img src="{{url('frontend/'.$configuracoes->template.'/assets/images/zap-topo.png')}}" alt="WhatsApp" />
-        </a>
-    </div>
-        <!-- Footer -->
-        
-    <!--FOOTER-->
-    <footer class="footer-sky">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-                    @if (!empty($newsletterForm))
-                        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
-                            <div class="icon-email form_hide">                            
-                                <img src="{{url('frontend/'.$configuracoes->template.'/assets/images/footer-top-icon-l.png')}}" alt="Email" class="img-responsive">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                            <div class="textbox">
-                                <form class="form-inline j_submitnewsletter" action="" method="post">
-                                    @csrf
-                                    <div class="form-group">
-                                        <div id="js-newsletter-result"></div>
-                                        <div class="form_hide">
-                                            <div class="input-group">   
-                                                <!-- HONEYPOT -->
-                                                <input type="hidden" class="noclear" name="bairro" value="" />
-                                                <input type="text" class="noclear" style="display: none;" name="cidade" value="" />
-                                                <input type="hidden" class="noclear" name="status" value="1" />
-                                                <input type="hidden" class="noclear" name="nome" value="#Cadastrado pelo Site" />                                 
-                                                <input type="email" class="form-control" placeholder="Cadastre seu E-mail" name="email"/>
-                                                <button class="btn btn-secondary" id="js-subscribe-btn"><i class="ion-android-send"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    @endif
-                    @if (!empty($whatsappForm))
-                    <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
-                        <div class="icon-email form_hide">                            
-                            <img src="{{url('frontend/'.$configuracoes->template.'/assets/images/footer-top-icon-lI.png')}}" alt="WhatsApp" class="img-responsive">                            
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                        <div class="textbox">
-                            <form class="form-inline j_formsubmitwhats" action="" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <div id="js-whats-result"></div>
-                                <div class="form_hide">
-                                    <div class="input-group">
-                                        <!-- HONEYPOT -->
-                                        <input type="hidden" class="noclear" name="bairro" value="" />
-                                        <input type="text" class="noclear" style="display: none;" name="cidade" value="" />
-                                        <input type="hidden" class="noclear" name="status" value="1" />
-                                        <input type="text" style="width: 43%;border-right: 1px;border-right-color: #FFFFFF !important;" class="form-control" placeholder="Nome" name="nome"/>
-                                        <input type="text" class="form-control celularmask" style="width: 40%;" id="zapzap" placeholder="WhatsApp" name="numero"/>
-                                        <button class="btn btn-secondary"><i class="ion-android-send"></i></button>
-                                    </div>
-                                </div>
-                                </div>
-                            </form>
-                        </div>
-                    @endif    
-                    {{--    @if ($configuracoes->facebook)
-                            <a target="_blank" href="{{$configuracoes->facebook}}" title="Facebook"><i class="fa fa-facebook"></i></a>
-                        @endif
-                        @if ($configuracoes->twitter)
-                            <a target="_blank" href="{{$configuracoes->twitter}}" title="Twitter"><i class="fa fa-twitter"></i></a>
-                        @endif
-                        @if ($configuracoes->instagram)
-                            <a target="_blank" href="{{$configuracoes->instagram}}" title="Instagram"><i class="fa fa-instagram"></i></a>
-                        @endif
-                        @if ($configuracoes->linkedin)
-                            <a target="_blank" href="{{$configuracoes->linkedin}}" title="linkedin"><i class="fa fa-linkedin"></i></a>
-                        @endif
-                        @if ($configuracoes->youtube)
-                            <a target="_blank" href="{{$configuracoes->youtube}}" title="Youtube"><i class="fa fa-youtube-play"></i></a>
-                        @endif     --}}                       
-                    </div>
-                </div>
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /footer-top -->
-        <div class="footer-mid">
-            <div class="container">
-                <div class="row padding-footer-mid">                
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                        <div class="footer-logo text-center list-content">
-                            <a href="{{route('web.home')}}" title="Skyline">
-                                <img src="{{url('frontend/'.$configuracoes->template.'/assets/images/logomarca-footer.png')}}" alt="{{$configuracoes->nomedosite}}"/>
-                            </a>
-                        </div>
-                    </div>                    
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                        <div class="list-content">                    
-                            <ul>                            
-                            <li><a href="/pagina/galerias" title="Galerias">Galerias</a></li>
-                            <li><a href="/pagina/reservar" title="Pré-Reserva">Pré-Reserva</a></li>  
-                            <li><a href="/pagina/atendimento" title="Atendimento">Atendimento</a></li>                          
-                            <li><a href="{{route('web.politica')}}" title="Política de Privacidade">Política de Privacidade</a></li>                          
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-5">
-                        <div class="list-content" style="color: #fff;line-height:30px;text-align: left;">                            
-                            
-                            @if($configuracoes->email)
-                                <i class="fa fa-envelope"></i> {{$configuracoes->email}}
-                            @endif 
-                            @if($configuracoes->email1)
-                                <i class="fa fa-envelope"></i> {{$configuracoes->email1}}
-                            @endif 
-                            @if($configuracoes->rua)	
-                                <br /><i class="fa fa-map-marker"></i> {{$configuracoes->rua}}
-                            @if($configuracoes->num)
-                                , {{$configuracoes->num}}
-                            @endif
-                            @if($configuracoes->bairro)
-                                , {{$configuracoes->bairro}}
-                            @endif
-                            @if($configuracoes->cidade)  
-                                - {{\App\Helpers\Cidade::getCidadeNome($configuracoes->cidade, 'cidades')}}
-                            @endif
-                        @endif
-                        @if($configuracoes->telefone1)
-                            <br /><i class="fa fa-phone"></i> {{$configuracoes->telefone1}}
-                        @endif
-                        @if($configuracoes->telefone2)
-                            <br /><i class="fa fa-phone"></i> {{$configuracoes->telefone2}}
-                        @endif
-                        @if($configuracoes->telefone3)
-                            <br /><i class="fa fa-phone"></i> {{$configuracoes->telefone3}}
-                        @endif
-                        @if($configuracoes->skype)
-                            <br /><img src="{{url('frontend/'.$configuracoes->template.'/assets/images/skype.png')}}" alt="Skype" width="16" height="16" /> {{$configuracoes->skype}}
-                        @endif
-                        @if($configuracoes->whatsapp)
-                            <br /><img src="{{url('frontend/'.$configuracoes->template.'/assets/images/zapzap.png')}}" alt="WhatsApp" width="16" height="16" /> {{$configuracoes->whatsapp}}
-                        @endif                            
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="footer-bottom">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 no-padding">
-                        © {{$configuracoes->ano_de_inicio}} - {{date('Y')}} {{$configuracoes->nomedosite}} - Todos os direitos reservados.
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 no-padding">
-                        <p class="font-accent text-right">
-                            <span class="small text-silver-dark">Feito com <i style="color:red;" class="fa fa-heart"></i> por <a style="color:#fff;" target="_blank" href="{{env('DESENVOLVEDOR_URL')}}">{{env('DESENVOLVEDOR')}}</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <footer>
+        <p class="footerP">Copyright&copy; {{$configuracoes->ano_de_inicio}} - {{date('Y')}} {{$configuracoes->nomedosite}} - Todos os direitos reservados.</p>
+        <p class="font-accent text-center">
+            <span class="small text-silver-dark">Feito com <i style="color:red;" class="fa fa-heart"></i> por <a target="_blank" href="{{env('DESENVOLVEDOR_URL')}}">{{env('DESENVOLVEDOR')}}</a></span>
+        </p>
     </footer>
-    <!-- END / FOOTER-->
-    
-    <!--SCOLL TOP-->
-    <a href="#" title="sroll" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
-    <!--END / SROLL TOP-->
-     
-    <!-- LOAD JQUERY -->
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery-1.12.4.min.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/owl.carousel.min.js')}}"></script>
+        
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery-1.10.2.min.js')}}"></script>
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery-ui-1.9.2.custom.min.js')}}"></script>
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery-migrate-1.2.1.min.js')}}"></script>
     <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/vit-gallery.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery.countTo.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery.appear.min.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/isotope.pkgd.min.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/bootstrap-select.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery.littlelightbox.js')}}"></script>
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/bootstrap-datepicker.js')}}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDyCxHyc8z9gMA5IlipXpt0c33Ajzqix4"></script>
-    <!-- Custom jQuery -->
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/modernizr.min.js')}}"></script>
 
-    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/sky.js')}}"></script>
+    <!--file upload-->
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/bootstrap-fileupload.min.js')}}"></script>
 
-    <script src="{{url(asset('backend/assets/js/jquery.mask.js'))}}"></script>
-    <script>
-        $(document).ready(function () { 
-            var $celularmask = $(".celularmask");
-            $celularmask.mask('(99) 99999-9999', {reverse: false});            
-        });
+    <!-- Input Mask -->
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/bootstrap-inputmask/bootstrap-inputmask.min.js')}}"></script>
+
+    <!-- CK Editor -->
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/ckeditor/adapters/jquery.js')}}"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replaceAll( 'editor', {});
     </script>
+    <!-- CK Editor -->
+
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/datetime/jquery.datetimepicker.full.min.js')}}"></script>
+    <link rel="stylesheet" href="{{url('frontend/'.$configuracoes->template.'/assets/js/datetime/jquery.datetimepicker.css')}}"/>
+
+    <!--pickers plugins-->
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+
+    <!--pickers initialization-->
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/pickers-init.js')}}"></script>
+
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/scripts.js')}}"></script>
+
+    <!--jquery form-->
+    <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery.form.js')}}"></script>
+
+    <script type="text/javascript">
+        (function ($) {
+            
+        
+            $('.j_loadstate').change(function() {
+                var uf = $('.j_loadstate');
+                var city = $('.j_loadcity');
+                var patch = basesite + 'ajax/cidades.php';
+        
+                city.attr('disabled', 'true');
+                uf.attr('disabled', 'true');
+        
+                city.html('<option value=""> Carregando cidades... </option>');
+        
+                $.post(patch, {estado: $(this).val()}, function(cityes) {
+                    city.html(cityes).removeAttr('disabled');
+                    uf.removeAttr('disabled');
+                });
+            });
+        
+            //CONTROLE DO MENU MOBILE
+            $('.mobile_action').click(function () {
+                if (!$(this).hasClass('active')) {
+                    $(this).addClass('active');
+                    $('.main_header_nav').animate({'left': '0px'}, 300);
+                } else {
+                    $(this).removeClass('active');
+                    $('.main_header_nav').animate({'left': '-100%'}, 300);
+                }
+            });
+        
+            // FUNÇÃO MODAL DE CARREGAMENTO DO SISTEMA
+            $(window).ready(function(){
+                $('.loadsistem').fadeOut("fast",function(){
+                    $('.dialog').fadeOut("fast");
+                });
+            });
+        
+            // DESABILIDA TEXTAREA DA OCORRENCIA
+            //$('.editor').attr("disabled", true);
+        
+            // SELECIONA O MODELO DA OCORRENCIA
+            $(document).ready(function() {
+                $('.modelo').change(function(){
+                    $('.finish').attr("disabled", true);
+                    $('.finish').html("Carregando...");
+                    var id_modelo = $('#modelo option:selected').val();
+                    $('.loadModelo').load(basesite + '/ajax/ajax-modelos.php?modelo=' + id_modelo, function(){
+                        $('.finish').removeAttr("disabled");
+                        $('.finish').html("Publicar Agora");
+                    });
+                });
+            });
+            // $('.modelo').change(function(){
+            //
+            //     $('.loadModelo').load(basesite + '/ajax/ajax-modelos.php?modelo=' + id_modelo);
+            //     $('.finish').html("Publicar Agora");
+            // });
+        
+            // FORM DE SUPORTE
+            $('.j_suporteSend').submit(function (){
+                var form = $(this);
+                var data = $(this).serialize();
+        
+                $.ajax({
+                    url: ajaxbase,
+                    data: data,
+                    type: 'POST',
+                    dataType: 'json',
+        
+                    beforeSend: function(){
+                        form.find('.b_nome').html("Carregando...");
+                        form.find('.alert').fadeOut(500, function(){
+                            $(this).remove();
+                        });
+                    },
+                    success: function(resposta){
+                        //console.clear();
+                        //console.log(resposta);
+                        $('html, body').animate({scrollTop:0}, 'slow');
+                        if(resposta.error){
+                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
+                            form.find('.alert-danger').fadeIn();
+                        }else{
+                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
+                            form.find('.alert-success').fadeIn();
+                            //form.find('input[class!="noclear"]').val('');
+                            //form.find('textarea[class!="noclear"]').val('');
+                            form.find('.form_hide').fadeOut(500);
+                        }
+                    },
+                    complete: function(resposta){
+                        form.find('.b_nome').html("Enviar Agora");
+                    }
+                });
+                return false;
+            });
+        
+        
+            $('.j_submitocorrencia').submit(function (){
+                var dadosajax = {
+                    'action' : $("#action").val(),
+                    'data' : $("#data").val(),
+                    'colaborador_id' : $("#colaborador_id").val(),
+                    'content' : CKEDITOR.instances["content"].getData(),
+                    'hotel_id' : $("#hotel_id").val(),
+                    'modelo_id' : $("#modelo").val(),
+                    'status' : $("#status").val(),
+                    'titulo' : $("#titulo").val()
+                };
+                //var form = $(this);
+                //var data = $(this).serialize();
+                $.ajax({
+                    url: ajaxbase,
+                    data: dadosajax,
+                    type: 'POST',
+                    dataType: 'json',
+        
+                    beforeSend: function(){
+                        $('.finish').html("Carregando...");
+                        $('.alert').fadeOut(500, function(){
+                            $(this).remove();
+                        });
+                    },
+                    success: function(resposta){
+                        $('html, body').animate({scrollTop:$('.alertas').offset().top-135}, 'slow');
+                        if(resposta.error){
+                            $('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
+                            $('.alert-danger').fadeIn();
+                        }else{
+                            $('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
+                            $('.alert-sucess').fadeIn();
+                            //form.find('input[class!="noclear"]').val('');
+                            $('.form_hide').fadeOut(500);
+                        }
+                    },
+                    complete: function(resposta){
+                        $('.finish').html("Publicar Agora");
+                    }
+                });
+                return false;
+            });
+        
+            $('.j_submitocorrenciaEdit').submit(function (){
+                var dadosajax = {
+                    'action' : $("#action").val(),
+                    'colaborador_id' : $("#colaborador_id").val(),
+                    'content' : CKEDITOR.instances["content"].getData(),
+                    'hotel_id' : $("#hotel_id").val(),
+                    'status' : $("#status").val(),
+                    'titulo' : $("#titulo").val(),
+                    'uppdate' : $("#uppdate").val(),
+                    'id' : $("#id").val()
+                };
+                //var form = $(this);
+                //var data = $(this).serialize();
+                $.ajax({
+                    url: ajaxbase,
+                    data: dadosajax,
+                    type: 'POST',
+                    dataType: 'json',
+        
+                    beforeSend: function(){
+                        $('.finish').html("Carregando...");
+                        $('.alert').fadeOut(500, function(){
+                            $(this).remove();
+                        });
+                    },
+                    success: function(resposta){
+                        $('html, body').animate({scrollTop:$('.alertas').offset().top-135}, 'slow');
+                        if(resposta.error){
+                            $('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
+                            $('.alert-danger').fadeIn();
+                        }else{
+                            $('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
+                            $('.alert-sucess').fadeIn();
+                            //form.find('input[class!="noclear"]').val('');
+                            //form.find('.form_hide').fadeOut(500);
+                        }
+                    },
+                    complete: function(resposta){
+                        $('.finish').html("Atualizar Agora");
+                    }
+                });
+                return false;
+            });
+        
+            $('.j_submitocolaboradorEdit').submit(function (){
+                var form = $(this);
+                var data = $(this).serialize();
+                $.ajax({
+                    url: ajaxbase,
+                    data: data,
+                    type: 'POST',
+                    dataType: 'json',
+        
+                    beforeSend: function(){
+                        form.find('.finish').html("Carregando...");
+                        form.find('.alert').fadeOut(500, function(){
+                            $(this).remove();
+                        });
+                    },
+                    success: function(resposta){
+                        $('html, body').animate({scrollTop:$('.alertas').offset().top-135}, 'slow');
+                        if(resposta.error){
+                            form.find('.alertas').html('<div class="alert alert-danger">'+ resposta.error +'</div>');
+                            form.find('.alert-danger').fadeIn();
+                        }else{
+                            form.find('.alertas').html('<div class="alert alert-success">'+ resposta.sucess +'</div>');
+                            form.find('.alert-sucess').fadeIn();
+                            //form.find('input[class!="noclear"]').val('');
+                            //form.find('.form_hide').fadeOut(500);
+                        }
+                    },
+                    complete: function(resposta){
+                        form.find('.finish').html("Atualizar");
+                    }
+                });
+                return false;
+            });
+        
+            // DATETIMEPICKER
+            $.datetimepicker.setLocale('pt-BR');
+        
+            $('.datetimepicker').datetimepicker({
+                format:	'd/m/Y H:i',
+                dayOfWeekStart : 1,
+                lang:'pt-BR',
+                //disabledDates:['1986/01/08','1986/01/09','1986/01/10']
+            });
+            $('.datetimepicker').datetimepicker({step:30});
+        
+            $('.some_class').datetimepicker();
+        
+            // UPLOAD DO AVATAR
+            var formFiles, divReturn, progressBar;
+            formFiles = document.getElementById('formFiles');
+            divReturn = document.getElementById('alertas');
+            progressBar = document.getElementById('progressBar');
+        
+            formFiles.addEventListener('submit', sendForm, false);
+            function sendForm(evt){
+                var formData, ajax, pct;
+                var bar = $('.progress');
+        
+                formData = new FormData(evt.target);
+                ajax = new XMLHttpRequest();
+        
+                ajax.onreadystatechange = function () {
+                    if(ajax.readyState == 4){
+                        formFiles.reset();
+                        divReturn.textContent = ajax.response;
+                        progressBar.style.display = 'none';
+                        bar.fadeOut("slow");
+                        $('.finish').text('Enviar Foto').fadeIn("fast");
+                        $('#alertas').empty().html('<div class="alert alert-success"><strong>Sucesso!</strong> Foto enviada corretamente.</div>').fadeIn("fast");
+                        window.location.reload(true);
+                    }else{
+                        progressBar.style.display = 'block';
+                        divReturn.style.display = 'block';
+                        divReturn.textContent = 'Enviando Foto!';
+                        $('.finish').text('Carregando...').fadeIn("fast");
+                    }
+                }
+        
+                ajax.upload.addEventListener('progress', function (evt){
+                    pct = Math.floor((evt.loaded * 100) / evt.total);
+                    progressBar.style.width = pct + '%';
+                    progressBar.getElementsByTagName('span')['0'].textContent = pct + '%';
+                }, false);
+        
+                ajax.open('POST', basesite + 'ajax/ajax-upload.php');
+                ajax.send(formData);
+            }
+        
+        })(jQuery);
+        </script>
+
 
     <script>
         $(function () {
@@ -330,88 +455,6 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
-
-            $('.j_btnwhats').click(function (){         
-                $('.balao').slideDown();
-                return false;
-            });
-
-            // Seletor, Evento/efeitos, CallBack, Ação
-            $('.j_submitnewsletter').submit(function (){
-                var form = $(this);
-                var dataString = $(form).serialize();
-    
-                $.ajax({
-                    url: "{{ route('web.sendNewsletter') }}",
-                    data: dataString,
-                    type: 'GET',
-                    dataType: 'JSON',
-                    beforeSend: function(){
-                        form.find("#js-subscribe-btn").attr("disabled", true);
-                        form.find('#js-subscribe-btn').val("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(response){
-                            $('html, body').animate({scrollTop:$('#js-newsletter-result').offset().top-70}, 'slow');
-                        if(response.error){
-                            form.find('#js-newsletter-result').html('<div class="alert alert-danger error-msg">'+ response.error +'</div>');
-                            form.find('.error-msg').fadeIn();                    
-                        }else{
-                            form.find('#js-newsletter-result').html('<div class="alert alert-success error-msg">'+ response.sucess +'</div>');
-                            form.find('.error-msg').fadeIn();                    
-                            form.find('input[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(response){
-                        form.find("#js-subscribe-btn").attr("disabled", false);
-                        form.find('#js-subscribe-btn').val("Cadastrar");                                
-                    }
-    
-                });
-    
-                return false;
-            });
-
-            $('.j_formsubmitwhats').submit(function (){
-                var form = $(this);
-                var dataString = $(form).serialize();
-    
-                $.ajax({
-                    url: "{{ route('web.sendWhatsapp') }}",
-                    data: dataString,
-                    type: 'GET',
-                    dataType: 'JSON',
-                    beforeSend: function(){
-                        form.find("#js-subscribe-btn").attr("disabled", true);
-                        form.find('#js-subscribe-btn').val("Carregando...");                
-                        form.find('.alert').fadeOut(500, function(){
-                            $(this).remove();
-                        });
-                    },
-                    success: function(response){
-                            $('html, body').animate({scrollTop:$('#js-whats-result').offset().top-70}, 'slow');
-                        if(response.error){
-                            form.find('#js-whats-result').html('<div class="alert alert-danger error-msg">'+ response.error +'</div>');
-                            form.find('.error-msg').fadeIn();                    
-                        }else{
-                            form.find('#js-whats-result').html('<div class="alert alert-success error-msg">'+ response.sucess +'</div>');
-                            form.find('.error-msg').fadeIn();                    
-                            form.find('input[class!="noclear"]').val('');
-                            form.find('.form_hide').fadeOut(500);
-                        }
-                    },
-                    complete: function(response){
-                        form.find("#js-subscribe-btn").attr("disabled", false);
-                        form.find('#js-subscribe-btn').val("Cadastrar");                                
-                    }
-    
-                });
-    
-                return false;
             });
     
         });
@@ -431,7 +474,5 @@
         gtag('config', '{{$configuracoes->tagmanager_id}}');
     </script>
 
-    <script async src='https://s3-sa-east-1.amazonaws.com/hbook-universal-js/js/634efbd423248fa77bd1381f.js'></script>
-    
 </body>
 </html>

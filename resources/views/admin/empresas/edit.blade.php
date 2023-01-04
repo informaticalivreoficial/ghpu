@@ -111,6 +111,12 @@
                                             <input type="text" class="form-control" placeholder="Número da Inscrição" name="document_company_secondary" value="{{ old('document_company_secondary') ?? $empresa->document_company_secondary }}"/>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-md-6 col-lg-6"> 
+                                        <div class="form-group">
+                                            <label class="labelforms text-muted"><b>Website:</b></label>
+                                            <input type="text" class="form-control" name="link" value="{{ old('link') ?? $empresa->link }}"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             

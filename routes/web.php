@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\{
 };
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Web\RssFeedController;
 use App\Http\Controllers\Web\SendEmailController;
 use App\Http\Controllers\Web\SendWhatsappController;
@@ -194,5 +195,5 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('/', [AdminController::class, 'home'])->name('home');
 });
 
-
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Auth::routes();

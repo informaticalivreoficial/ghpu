@@ -21,6 +21,7 @@ class CreateEmpresasTable extends Migration
             $table->string('document_company_secondary')->nullable();
             $table->integer('status')->default('0');
             $table->string('logomarca')->nullable();
+            $table->string('link')->nullable();
             $table->text('notasadicionais')->nullable();
 
             /** address */
