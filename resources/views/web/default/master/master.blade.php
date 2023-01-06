@@ -38,6 +38,8 @@
     <link href="{{url('frontend/'.$configuracoes->template.'/assets/fonts/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet"/>
 
+    <!-- Toastr -->
+   <link rel="stylesheet" href="{{url(asset('backend/plugins/toastr/toastr.min.css'))}}">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -79,7 +81,7 @@
                                         &nbsp; <a href="{{route('logout')}}">Sair&nbsp; <i class="fa fa-power-off"></i></a>
                                     </p>
                                 @else
-                                    <form method="post" action="" class="form-inline" role="form">
+                                    <form method="post" action="{{ route('login.do') }}" class="form-inline" autocomplete="off" name="login">
                                         <div class="form-group">
                                             <label for="" class="control-label">Colaboradores:</label>
                                             <input type="text" class="form-control input-lg" name="rg" value="" data-mask="99.999.999-9"/>
@@ -168,6 +170,44 @@
 
     <!--jquery form-->
     <script src="{{url('frontend/'.$configuracoes->template.'/assets/js/jquery.form.js')}}"></script>
+
+    <!-- Toastr -->
+    <script src="{{url(asset('backend/plugins/toastr/toastr.min.js'))}}"></script>
+
+    <script>
+        $(function () {
+    
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('form[name="login"]').submit(function (event) {
+                event.preventDefault();
+
+                const form = $(this);
+                const action = form.attr('action');
+                const rg = form.find('input[name="rg"]').val();
+
+                $.post(action, {rg:rg}, function (response) {
+
+                    if(response.message) {
+                        toastr.error(response.message);
+                    }
+
+                    if(response.redirect) {
+                        toastr.success(response.msg);
+                        setTimeout(function() {
+                            window.location.href = response.redirect;
+                        }, 2000);                                
+                    }
+                }, 'json');
+
+            });
+    
+        });
+    </script>
 
     <script type="text/javascript">
         (function ($) {
@@ -448,17 +488,7 @@
         </script>
 
 
-    <script>
-        $(function () {
     
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-    
-        });
-    </script>
 
     @hasSection('js')
         @yield('js')

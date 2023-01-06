@@ -74,12 +74,14 @@ $config = [
                     @if(!empty(auth()->user()->email1))
                         <option value="{{ auth()->user()->email1 }}">{{ auth()->user()->email1 }}</option>
                     @endif
-                    @if(!empty($configuracoes->email))
-                        <option value="{{ $configuracoes->email }}">{{ $configuracoes->email }}</option>
-                    @endif
-                    @if(!empty($configuracoes->email1))
-                        <option value="{{ $configuracoes->email1 }}">{{ $configuracoes->email1 }}</option>
-                    @endif
+                    @if (auth()->user()->admin == 1 || auth()->user()->superadmin == 1)
+                        @if(!empty($configuracoes->email))
+                            <option value="{{ $configuracoes->email }}">{{ $configuracoes->email }}</option>
+                        @endif
+                        @if(!empty($configuracoes->email1))
+                            <option value="{{ $configuracoes->email1 }}">{{ $configuracoes->email1 }}</option>
+                        @endif
+                    @endif                    
                 </select>
             </div>
             <!-- /.card-header -->

@@ -9,16 +9,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Analytics;
-use App\Models\Apartamento;
-use App\Models\Newsletter;
-use App\Models\NewsletterCat;
+use App\Models\Ocorrencia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\Analytics\Period;
 
 class AdminController extends Controller
 {
     public function home()
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         //Users
         $time = User::where('admin', 1)->orWhere('editor', 1)->count();
         $usersAvailable = User::where('client', 1)->available()->count();
@@ -120,6 +123,18 @@ class AdminController extends Controller
             //'visitas365' => $visitas365,
             'analyticsData' => $analyticsData,
             'top_browser' => $top_browser
+        ]);
+    }
+
+    public function colaborador()
+    {
+        $ocorrências = Ocorrencia::orderBy('created_at', 'DESC')
+                    //->where('empresa', Auth::user()->empresa)
+                    ->available()
+                    ->limit(25)
+                    ->get();
+        return view('admin.colaborador',[
+            'ocorrências' => $ocorrências
         ]);
     }
 }

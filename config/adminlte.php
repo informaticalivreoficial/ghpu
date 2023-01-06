@@ -241,10 +241,12 @@ return [
             'text' => 'Configurações',
             'url'  => 'admin/configuracoes',
             'icon' => 'fas fa-cog',
+            'can' => 'Configurações',
         ],
         [
             'text' => 'Ocorrências',            
             'icon' => 'fas fa-fw fa-file',
+            'can' => 'Listar Ocorrencias',
             'submenu' => [
                 [
                     'text' => 'Listar Ocorrências',
@@ -253,10 +255,12 @@ return [
                 [
                     'text' => 'Cadastrar Ocorrência',
                     'url'  => 'admin/ocorrencias/cadastrar',
+                    'can' => 'Cadastrar Ocorrencias',
                 ],
                 [
                     'text' => 'Modelos',
                     'url'  => 'admin/ocorrencias/modelos',
+                    'can' => 'Ocorrencias Modelos',
                 ]
             ]
         ],
@@ -264,6 +268,7 @@ return [
             'text' => 'Menu',
             'url'  => 'admin/menus',
             'icon' => 'fas fa-bars',
+            'can' => 'Menu Listar',
         ],
         [
             'text' => 'Usuários',            
@@ -324,6 +329,7 @@ return [
         [
             'text' => 'Segurança',            
             'icon' => 'fas fa-fw fa-lock',
+            //'can' => 'Segurança',
             'submenu' => [
                 [
                     'text' => 'Perfis',

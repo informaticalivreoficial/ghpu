@@ -4,23 +4,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     AdminController,
-    ApartamentoController,
-    AvaliacaoController,
+    AuthController,
     UserController,
     EmailController,
     PostController,
     CatPostController,
     ConfigController,
     EmpresaController,
-    GaleriaController,
     MenuController,
-    NewsletterController,
     OcorrenciaController,
-    ParceiroController,
-    ReservaController,
     SitemapController,
-    SlideController,
-    WhatsappController
 };
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
@@ -193,7 +186,9 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('gerarxml');
 
     Route::get('/', [AdminController::class, 'home'])->name('home');
+    Route::get('/colaborador', [AdminController::class, 'colaborador'])->name('colaborador');
 });
 
+Route::post('/loginrg', [AuthController::class, 'loginRg'])->name('login.do');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Auth::routes();
