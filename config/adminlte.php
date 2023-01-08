@@ -273,6 +273,7 @@ return [
         [
             'text' => 'Usuários',            
             'icon' => 'fas fa-fw fa-users',
+            'can' => 'Listar Usuários',
             'submenu' => [
                 [
                     'text' => 'Time',
@@ -285,6 +286,7 @@ return [
                 [
                     'text' => 'Criar Novo',
                     'url'  => 'admin/usuarios/create',
+                    'can' => 'Cadastrar Usuários',
                 ]
             ]
         ],
@@ -329,7 +331,7 @@ return [
         [
             'text' => 'Segurança',            
             'icon' => 'fas fa-fw fa-lock',
-            //'can' => 'Segurança',
+            'can' => 'Segurança',
             'submenu' => [
                 [
                     'text' => 'Perfis',

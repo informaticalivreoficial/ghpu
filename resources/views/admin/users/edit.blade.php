@@ -49,14 +49,13 @@
                                     <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Dados Cadastrais</a>
                                 </li>                               
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Dados Complementares</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-four-redes-tab" data-toggle="pill" href="#custom-tabs-four-redes" role="tab" aria-controls="custom-tabs-four-redes" aria-selected="false">Redes Sociais</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-four-permissoes-tab" data-toggle="pill" href="#custom-tabs-four-permissoes" role="tab" aria-controls="custom-tabs-four-permissoes" aria-selected="false">Permissões</a>
-                                </li>
+                                @if (\Illuminate\Support\Facades\Auth::user()->superadmin == 1 || \Illuminate\Support\Facades\Auth::user()->admin == 1)
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-four-permissoes-tab" data-toggle="pill" href="#custom-tabs-four-permissoes" role="tab" aria-controls="custom-tabs-four-permissoes" aria-selected="false">Permissões</a>
+                                    </li>
+                                @endif                                
                             </ul>
                         </div>
                         <div class="card-body">
@@ -381,46 +380,48 @@
                                             </div>
                                         </div>                                        
                                     </div>
-                                </div>                                
-                                <div class="tab-pane fade" id="custom-tabs-four-permissoes" role="tabpanel" aria-labelledby="custom-tabs-four-permissoes-tab">
-                                    <div class="row mb-2 text-muted">
-                                        <div class="col-sm-12 bg-gray-light mb-3">                                        
-                                            <!-- checkbox -->
-                                            <div class="form-group p-3 mb-0">
-                                                <span class="mr-3"><b>Acesso ao Sistema:</b></span> 
-                                                <div class="form-check d-inline mx-2">
-                                                    <input id="editor" class="form-check-input" type="checkbox" name="editor" {{ (old('editor') == 'on' || old('editor') == true ? 'checked' : ($user->editor == true ? 'checked' : '')) }}>
-                                                    <label for="editor" class="form-check-label">Colaborador</label>
-                                                </div> 
-                                                <div class="form-check d-inline mx-2">
-                                                    <input id="admin" class="form-check-input" type="checkbox" name="admin" {{ (old('admin') == 'on' || old('admin') == true ? 'checked' : ($user->admin == true ? 'checked' : '')) }}>
-                                                    <label for="admin" class="form-check-label">Administrativo</label>
+                                </div>     
+                                @if (\Illuminate\Support\Facades\Auth::user()->superadmin == 1 || \Illuminate\Support\Facades\Auth::user()->admin == 1)
+                                    <div class="tab-pane fade" id="custom-tabs-four-permissoes" role="tabpanel" aria-labelledby="custom-tabs-four-permissoes-tab">
+                                        <div class="row mb-2 text-muted">
+                                            <div class="col-sm-12 bg-gray-light mb-3">                                        
+                                                <!-- checkbox -->
+                                                <div class="form-group p-3 mb-0">
+                                                    <span class="mr-3"><b>Acesso ao Sistema:</b></span> 
+                                                    <div class="form-check d-inline mx-2">
+                                                        <input id="editor" class="form-check-input" type="checkbox" name="editor" {{ (old('editor') == 'on' || old('editor') == true ? 'checked' : ($user->editor == true ? 'checked' : '')) }}>
+                                                        <label for="editor" class="form-check-label">Colaborador</label>
+                                                    </div> 
+                                                    <div class="form-check d-inline mx-2">
+                                                        <input id="admin" class="form-check-input" type="checkbox" name="admin" {{ (old('admin') == 'on' || old('admin') == true ? 'checked' : ($user->admin == true ? 'checked' : '')) }}>
+                                                        <label for="admin" class="form-check-label">Administrativo</label>
+                                                    </div>
+                                                    @if(\Illuminate\Support\Facades\Auth::user()->superadmin == 1)
+                                                    <div class="form-check d-inline mx-2">
+                                                        <input id="superadmin" class="form-check-input" type="checkbox"  name="superadmin" {{ (old('superadmin') == 'on' || old('superadmin') == true ? 'checked' : ($user->superadmin == true ? 'checked' : '')) }}>
+                                                        <label for="superadmin" class="form-check-label">Super Administrador</label>
+                                                    </div>
+                                                    @endif
                                                 </div>
-                                                @if(\Illuminate\Support\Facades\Auth::user()->superadmin == 1)
-                                                <div class="form-check d-inline mx-2">
-                                                    <input id="superadmin" class="form-check-input" type="checkbox"  name="superadmin" {{ (old('superadmin') == 'on' || old('superadmin') == true ? 'checked' : ($user->superadmin == true ? 'checked' : '')) }}>
-                                                    <label for="superadmin" class="form-check-label">Super Administrador</label>
+                                            </div>                                        
+                                        </div>
+                                        <div class="row mb-2 text-muted">
+                                            <div class="col-sm-12 text-muted">
+                                                <div class="form-group">
+                                                    <h5><b>Permissões no Sistema</b></h5>            
                                                 </div>
-                                                @endif
                                             </div>
-                                        </div>                                        
-                                    </div>
-                                    <div class="row mb-2 text-muted">
-                                        <div class="col-sm-12 text-muted">
-                                            <div class="form-group">
-                                                <h5><b>Permissões no Sistema</b></h5>            
+                                            <div class="col-lg-3 mb-2">
+                                                @foreach($roles as $role)                                        
+                                                    <div class="form-check mb-1">
+                                                        <input id="acl_{{ $role->id }}" class="form-check-input" type="checkbox"  name="acl_{{ $role->id }}" {{ ($role->can == 1 ? 'checked' : '') }}>
+                                                        <label for="acl_{{ $role->id }}" class="form-check-label">{{ $role->name }}</label>
+                                                    </div>                                        
+                                                @endforeach
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 mb-2">
-                                            @foreach($roles as $role)                                        
-                                                <div class="form-check mb-1">
-                                                    <input id="acl_{{ $role->id }}" class="form-check-input" type="checkbox"  name="acl_{{ $role->id }}" {{ ($role->can == 1 ? 'checked' : '') }}>
-                                                    <label for="acl_{{ $role->id }}" class="form-check-label">{{ $role->name }}</label>
-                                                </div>                                        
-                                            @endforeach
-                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
 
                             <div class="row text-right">

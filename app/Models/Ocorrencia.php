@@ -47,4 +47,9 @@ class Ocorrencia extends Model
     {
         return $this->hasOne(Empresa::class, 'id', 'empresa');
     }
+
+    public function comentariosCount()
+    {
+        return $this->hasMany(ComentarioOcorrencia::class, 'ocorrencia', 'id')->count();
+    }
 }

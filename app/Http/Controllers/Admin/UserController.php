@@ -13,6 +13,7 @@ use App\Models\Empresa;
 use App\Models\Estados;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\Models\Role;
 
@@ -20,6 +21,10 @@ class UserController extends Controller
 {
     public function index()
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $users = User::orderBy('created_at', 'DESC')
         ->orderBy('status', 'ASC')
         ->where('client', '1')
@@ -33,6 +38,10 @@ class UserController extends Controller
 
     public function show($id)
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $user = User::where('id', $id)->first();
         return view('admin.users.view',[
             'user' => $user
@@ -41,6 +50,10 @@ class UserController extends Controller
 
     public function team()
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $users = User::where('admin', '=', '1')->paginate(12);
         return view('admin.users.team', [
             'users' => $users    
@@ -63,6 +76,10 @@ class UserController extends Controller
     
     public function create()
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $estados = Estados::orderBy('estado_nome', 'ASC')->get();
         $cidades = Cidades::orderBy('cidade_nome', 'ASC')->get(); 
         $empresas = Empresa::orderBy('alias_name', 'ASC')->available()->get();    
@@ -210,6 +227,10 @@ class UserController extends Controller
 
     public function delete(Request $request)
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+        
         $user = User::where('id', $request->id)->first();
         $nome = \App\Helpers\Renato::getPrimeiroNome(Auth::user()->name);
         if(!empty($user)){
@@ -236,6 +257,10 @@ class UserController extends Controller
 
     public function deleteon(Request $request)
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $user = User::where('id', $request->user_id)->first();        
         if(!empty($user)){
             $perfil = ($user->admin == '1' && $user->client == '1' ? 'Administrador e Cliente' :

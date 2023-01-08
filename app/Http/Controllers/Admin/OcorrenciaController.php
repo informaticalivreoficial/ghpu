@@ -17,6 +17,10 @@ class OcorrenciaController extends Controller
 {
     public function index()
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $empresas = Empresa::orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->paginate(15);
         return view('admin.ocorrencias.index', [
             'empresas' => $empresas,
@@ -25,6 +29,10 @@ class OcorrenciaController extends Controller
 
     public function ocorrencias($empresa)
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $ocorrencias = Ocorrencia::orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->where('empresa', $empresa)->paginate(50);
         $empresaView = Empresa::where('id', $empresa)->first();
         return view('admin.ocorrencias.ocorrencias', [
@@ -35,10 +43,24 @@ class OcorrenciaController extends Controller
     
     public function view($ocorrencia)
     {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
         $ocorrenciaView = Ocorrencia::where('id', $ocorrencia)->first();
         return view('admin.ocorrencias.view', [
             'ocorrencia' => $ocorrenciaView
         ]);
+    }
+
+    public function ocorrenciaView(Request $request)
+    {
+        $ocorrenciaView = Ocorrencia::where('id', $request->id)->first();
+        $json = [
+            'content' => $ocorrenciaView->content,
+            'titulo' => $ocorrenciaView->titulo
+        ];
+        return response()->json($json);
     }
 
     public function create()
@@ -60,6 +82,12 @@ class OcorrenciaController extends Controller
         $criarOcorrencia = Ocorrencia::create($data);
         $criarOcorrencia->save();
 
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador', [
+                'id' => $criarOcorrencia->id,
+            ])->with(['color' => 'success', 'message' => 'Ocorrência cadastrada com sucesso!']);
+        }
+        
         return Redirect::route('ocorrencias.edit', [
             'id' => $criarOcorrencia->id,
         ])->with(['color' => 'success', 'message' => 'Ocorrência cadastrada com sucesso!']);
@@ -83,6 +111,12 @@ class OcorrenciaController extends Controller
         $ocorrencia = Ocorrencia::where('id', $id)->first();
         $ocorrencia->fill($request->all());
         $ocorrencia->save();
+
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador', [
+                'id' => $ocorrencia->id,
+            ])->with(['color' => 'success', 'message' => 'Ocorrência atualizada com sucesso!']);
+        }
 
         return Redirect::route('ocorrencias.edit', [
             'id' => $ocorrencia->id,

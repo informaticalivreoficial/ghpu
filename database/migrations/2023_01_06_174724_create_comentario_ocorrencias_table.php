@@ -14,8 +14,16 @@ class CreateComentarioOcorrenciasTable extends Migration
     public function up()
     {
         Schema::create('comentario_ocorrencias', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->unsignedInteger('ocorrencia');
+            $table->unsignedInteger('user');
+            $table->longText('content')->nullable();
+            $table->integer('status')->nullable();
+
             $table->timestamps();
+
+            $table->foreign('user')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreign('ocorrencia')->references('id')->on('ocorrencias')->onDelete('CASCADE');
         });
     }
 

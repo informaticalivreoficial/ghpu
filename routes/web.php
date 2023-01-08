@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
     EmailController,
     PostController,
     CatPostController,
+    ComentarioOcorrenciaController,
     ConfigController,
     EmpresaController,
     MenuController,
@@ -187,6 +188,10 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 
     Route::get('/', [AdminController::class, 'home'])->name('home');
     Route::get('/colaborador', [AdminController::class, 'colaborador'])->name('colaborador');
+    Route::post('/sendComment', [ComentarioOcorrenciaController::class, 'sendComment'])->name('sendComment');
+    Route::post('/commentCount', [ComentarioOcorrenciaController::class, 'ocorrenciaCount'])->name('ocorrenciaCount');
+    Route::get('/ocorrenciaView', [OcorrenciaController::class, 'ocorrenciaView'])->name('ocorrenciaView');
+    Route::get('/loadComentarios', [ComentarioOcorrenciaController::class, 'loadComentarios'])->name('loadComentarios');
 });
 
 Route::post('/loginrg', [AuthController::class, 'loginRg'])->name('login.do');

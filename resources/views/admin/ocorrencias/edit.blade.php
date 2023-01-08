@@ -91,7 +91,7 @@ $config = [
                             @else
                                 <input type="hidden" name="colaborador" value="{{Auth::user()->id}}">
                             @endif 
-                            <div class="col-12 col-md-6 col-lg-6">
+                            {{--<div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label class="labelforms text-muted"><b>*Selecione um Modelo:</b></label>
                                     <select name="modelo" class="form-control j_modelo">
@@ -104,7 +104,7 @@ $config = [
                                         @endforeach
                                     </select>
                                 </div>
-                            </div> 
+                            </div> --}}
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label class="labelforms text-muted">&nbsp;</label>

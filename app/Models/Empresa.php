@@ -40,7 +40,6 @@ class Empresa extends Model
     /**
      * Scopes
     */
-
     public function scopeAvailable($query)
     {
         return $query->where('status', 1);

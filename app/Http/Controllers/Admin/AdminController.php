@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Analytics;
 use App\Models\Ocorrencia;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Analytics\Period;
 
