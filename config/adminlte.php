@@ -299,18 +299,22 @@ return [
         [
             'text' => 'Posts',            
             'icon' => 'fas fa-fw fa-pen',
+            'can' => 'Listar Posts',
             'submenu' => [
                 [
                     'text' => 'Cadastrar Post',
                     'url'  => 'admin/posts/create',
+                    'can' => 'Cadastrar Posts',
                 ],                
                 [
                     'text' => 'Artigos',
                     'url'  => 'admin/posts/artigos',
+                    'can' => 'Listar Posts',
                 ],
                 [
                     'text' => 'Páginas',
                     'url'  => 'admin/posts/paginas',
+                    'can' => 'Listar Posts',
                 ],
                 [
                     'text' => 'Categorias',

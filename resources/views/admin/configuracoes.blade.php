@@ -523,7 +523,7 @@ $config1 = [
                                                 <input class="form-check-input" type="radio" name="template" value="{{$template->name}}" {{(old('template') == '1' ? $template->name : ($config->template == $template->name ? 'checked' : ''))}}>
                                                 <label class="form-check-label">{{$template->name}}</label>
                                             </div>                                            
-                                            <img src="{{$template->getimagem()}}" alt="{{$template->name}}">                                            
+                                            <img width="200" src="{{$template->getimagem()}}" alt="{{$template->name}}">                                            
                                         </div>                                                                                
                                     @endforeach
                                 @endif                                                                                                       
