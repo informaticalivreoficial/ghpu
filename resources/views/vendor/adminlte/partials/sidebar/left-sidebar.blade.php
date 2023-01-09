@@ -16,7 +16,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img height="25" src="{{$cover}}" class="img-circle elevation-2" alt="{{ \Illuminate\Support\Facades\Auth::user()->name }}">
+                <img style="height: 40px !important;" src="{{$cover}}" class="img-circle elevation-2" alt="{{ \Illuminate\Support\Facades\Auth::user()->name }}">
             </div>
             <div class="info">
                 <a href="{{ route('users.edit', ['id' => \Illuminate\Support\Facades\Auth::user()->id] )}}" class="d-block">{{ \Illuminate\Support\Facades\Auth::user()->name }}</a>
