@@ -29,7 +29,7 @@
                         <a href="{{route('ocorrencias.create')}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Ocorrência</a>
                     </div>
                 </div>
-                <div class="row p-3">
+                <div class="row">
                     <div class="col-12">                
                         @if(session()->exists('message'))
                             @message(['color' => session()->get('color')])
@@ -42,7 +42,7 @@
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="activity">
+                    <div class="tab-pane active scrolling-pagination" id="activity">
                         @if (!empty($ocorrências) && $ocorrências->count() > 0)
                             @foreach ($ocorrências as $item)
                                 @php
@@ -93,6 +93,9 @@
                                     </form>
                                 </div>
                             @endforeach
+                            @if($ocorrências->hasPages())
+                                {{$ocorrências->links()}}  
+                            @endif
                         @endif        
                     </div>
                 </div>        
@@ -138,45 +141,32 @@
         .link-black:focus{
             color: #6c757d;
         }
+        .jscroll-added{
+            margin-top: 10px;
+        }
     </style>
 @endsection
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<script>
+    // Paginação infinita
+    $('ul.pagination-custom').hide();
+    $(function() {
+        $('.scrolling-pagination').jscroll({
+            autoTrigger: true,
+            padding: 0,
+            nextSelector: '.pagination-custom li.active + li a',
+            contentSelector: 'div.scrolling-pagination',
+            callback: function() {
+                $('ul.pagination-custom').remove();
+            }
+        });
+    });          
+</script>
+
 <script>
     $(function () {
-
-        // $('.open').on('click', function (event) {
-        //     event.preventDefault();
-        //     var id = $(this).data('id');
-            
-        //     $.ajax({
-        //         url: "{{ route('loadComentarios') }}",
-        //         data: {
-        //             'id': id
-        //         },
-        //         type: 'GET',
-        //         dataType: 'JSON',
-        //         success: function(data){
-        //             var fragment="";                
-        //             if(data.length !== 0){
-        //                 $('.modal-body').each(function() {
-        //                     $(this).html(''); 
-        //                 }); 
-        //                 $.each(data[0], function (k, value) {                            
-        //                     fragment +="<p class=\"pl-3\"><b>"+ value.user +"</b><br> "+ value.content +" </p>";
-        //                 });
-        //                 $('.modal-body').append(fragment);
-        //                 $('#myModal').modal('show');  
-        //             }
-        //         }
-        //     });
-        // });
-
-        // $('.fechar').on('click', function() {
-        //     $('.modal-body').each(function() {
-        //         $(this).html(''); 
-        //     });
-        // });
 
         $('.open').on('click', function (event) {
             event.preventDefault();

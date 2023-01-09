@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Analytics;
+use App\Models\Empresa;
 use App\Models\Ocorrencia;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Analytics\Period;
@@ -22,12 +23,14 @@ class AdminController extends Controller
         }
 
         //Users
-        $time = User::where('admin', 1)->orWhere('editor', 1)->count();
-        $usersAvailable = User::where('client', 1)->available()->count();
-        $usersUnavailable = User::where('client', 1)->unavailable()->count();
+        $time = User::where('admin', 1)->count();
+        $colaboradores = User::where('editor', 1)->available()->count();
         //Clientes
-        $clientesAvailable = User::where('client', 1)->available()->count();
-        $clientesUnavailable = User::where('client', 1)->unavailable()->count();
+        $empresasAvailable = Empresa::available()->count();
+        $empresasUnavailable = Empresa::unavailable()->count();
+        //Ocorrências
+        $ocorrenciasAvailable = Ocorrencia::available()->count();
+        $ocorrenciasUnavailable = Ocorrencia::unavailable()->count();
         //Newsletter
         // $listas = NewsletterCat::count();
         // $emails = Newsletter::count();
@@ -36,18 +39,7 @@ class AdminController extends Controller
         $postsArtigos = Post::where('tipo', 'artigo')->count();
         $postsPaginas = Post::where('tipo', 'pagina')->count();
         $postsNoticias = Post::where('tipo', 'noticia')->count();
-        //Apartamentos
-        // $apartamentosAvailable = Apartamento::available()->count();
-        // $apartamentosUnavailable = Apartamento::unavailable()->count();
-        // $apartamentosTop = Apartamento::orderBy('views', 'DESC')
-        //         ->limit(6)
-        //         ->available()   
-        //         ->get();                
-        // $totalViewsApartamentos = Apartamento::orderBy('views', 'DESC')
-        //         ->available()
-        //         ->limit(6)
-        //         ->get()
-        //         ->sum('views');        
+             
         //Artigos
         $artigosAvailable = Post::postson()->where('tipo', 'artigo')->count();
         $artigosUnavailable = Post::postsoff()->where('tipo', 'artigo')->count();
@@ -91,16 +83,8 @@ class AdminController extends Controller
          );         
         
         return view('admin.dashboard',[
-            //Newsletter
-        //     'listas' => $listas,
-        //     'emails' => $emails,
-        //     'emailsCount' => $emailsCount->sum('count'),
             'time' => $time,
-            //Notícias
-        //     'apartamentosAvailable' => $apartamentosAvailable,
-        //     'apartamentosUnavailable' => $apartamentosUnavailable,
-        //     'apartamentosTop' => $apartamentosTop,
-        //     'apartamentostotalviews' => $totalViewsApartamentos,
+            'colaboradores' => $colaboradores,
             //Artigos
             'artigosAvailable' => $artigosAvailable,
             'artigosUnavailable' => $artigosUnavailable,
@@ -109,11 +93,12 @@ class AdminController extends Controller
             //Páginas
             'paginasTop' => $paginasTop,
             'paginastotalviews' => $totalViewsPaginas,
-            'usersAvailable' => $usersAvailable,
-            'usersUnavailable' => $usersUnavailable,
-            //Clientes
-            'clientesAvailable' => $clientesAvailable,
-            'clientesUnavailable' => $clientesUnavailable,
+            //Empresas
+            'empresasAvailable' => $empresasAvailable,
+            'empresasUnavailable' => $empresasUnavailable,
+            //Ocorrências
+            'ocorrenciasAvailable' => $ocorrenciasAvailable,
+            'ocorrenciasUnavailable' => $ocorrenciasUnavailable,
             'postsArtigos' => $postsArtigos,
             'postsNoticias' => $postsNoticias,
             'postsPaginas' => $postsPaginas,
@@ -127,11 +112,7 @@ class AdminController extends Controller
 
     public function colaborador()
     {
-        $ocorrências = Ocorrencia::orderBy('created_at', 'DESC')
-                    //->where('empresa', Auth::user()->empresa)
-                    ->available()
-                    ->limit(25)
-                    ->get();
+        $ocorrências = Ocorrencia::orderBy('created_at', 'DESC')->available()->paginate(25);
         return view('admin.colaborador',[
             'ocorrências' => $ocorrências
         ]);

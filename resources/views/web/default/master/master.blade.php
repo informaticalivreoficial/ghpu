@@ -114,7 +114,7 @@
                                 <li class="main_header_nav_item"><a href="#">Minha Conta</a>
                                     <ul class="main_header_nav_sub">
                                         <li class="main_header_nav_sub_item"><a href="{{route('users.edit',['id' => auth()->user()->id])}}">Editar perfil</a></li>
-                                        <li class="main_header_nav_sub_item"><a href="/pagina/sistema">Sistemas</a></li>
+                                        <li class="main_header_nav_sub_item"><a href="{{route('home')}}">Ocorrências</a></li>
                                     </ul>                        
                                 </li>
                                 @endauth

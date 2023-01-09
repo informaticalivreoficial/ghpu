@@ -31,14 +31,8 @@ Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
     Route::match(['post', 'get'], '/fetchCity', [WebController::class, 'fetchCity'])->name('fetchCity');
 
     //**************************** Emails ********************************************/
-    Route::match(['post', 'get'], '/avaliacao', [WebController::class, 'avaliacaoCliente'])->name('avaliacao');
-    Route::get('/avaliacaoSend', [SendEmailController::class, 'avaliacaoSend'])->name('avaliacaoSend');
     Route::get('/atendimento', [WebController::class, 'atendimento'])->name('atendimento');
     Route::get('/sendEmail', [SendEmailController::class, 'sendEmail'])->name('sendEmail');
-    Route::get('/sendNewsletter', [SendEmailController::class, 'sendNewsletter'])->name('sendNewsletter');
-    Route::get('/acomodacaoSend', [SendEmailController::class, 'acomodacaoSend'])->name('acomodacaoSend');
-
-    Route::get('/sendWhatsApp', [SendWhatsappController::class, 'sendWhatsapp'])->name('sendWhatsapp');
     
     //****************************** Blog ***********************************************/
     Route::get('/blog/artigo/{slug}', [WebController::class, 'artigo'])->name('blog.artigo');
@@ -46,25 +40,15 @@ Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
     Route::get('/blog', [WebController::class, 'artigos'])->name('blog.artigos');
     Route::match(['post', 'get'], '/blog/pesquisar', [WebController::class, 'searchBlog'])->name('blog.searchBlog');
 
-    //*************************************** Acomodações *******************************************/
-    Route::get('/acomodacoes', [WebController::class, 'acomodacoes'])->name('acomodacoes');
-    Route::get('/acomodacao/{slug}', [WebController::class, 'acomodacao'])->name('acomodacao');
-    Route::match(['post', 'get'], '/reservar', [WebController::class, 'reservar'])->name('reservar');
-
     //*************************************** Páginas *******************************************/
     Route::get('/pagina/{slug}', [WebController::class, 'pagina'])->name('pagina');
     Route::get('/noticia/{slug}', [WebController::class, 'noticia'])->name('noticia');
     Route::get('/noticias', [WebController::class, 'noticias'])->name('noticias');
     Route::get('/noticias/categoria/{slug}', [WebController::class, 'categoria'])->name('noticia.categoria');
    
-    //*************************************** Galerias *******************************************/
-    Route::get('/galeria/{slug}', [WebController::class, 'galeria'])->name('galeria');
-    Route::get('/galerias', [WebController::class, 'galerias'])->name('galerias');
-    
     //** Pesquisa */
     Route::match(['post', 'get'], '/pesquisa', [WebController::class, 'pesquisa'])->name('pesquisa');
-    Route::match(['post', 'get'], '/zapchat', [WebController::class, 'zapchat'])->name('zapchat');
-
+    
     /** FEED */
     Route::get('feed', [RssFeedController::class, 'feed'])->name('feed');
     Route::get('/politica-de-privacidade', [WebController::class, 'politica'])->name('politica');
