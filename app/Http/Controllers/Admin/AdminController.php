@@ -24,7 +24,7 @@ class AdminController extends Controller
 
         //Users
         $time = User::where('admin', 1)->count();
-        $colaboradores = User::where('editor', 1)->available()->count();
+        $colaboradores = User::where('editor', 1)->count();
         //Clientes
         $empresasAvailable = Empresa::available()->count();
         $empresasUnavailable = Empresa::unavailable()->count();

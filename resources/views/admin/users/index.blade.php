@@ -81,7 +81,7 @@
                             @endphp
                             <td class="text-center">
                                 <a href="{{url($cover)}}" data-title="{{$user->name}}" data-toggle="lightbox">
-                                    <img alt="{{$user->name}}" class="table-avatar" src="{{url($cover)}}">
+                                    <img height="40" alt="{{$user->name}}" class="table-avatar" src="{{url($cover)}}">
                                 </a>
                             </td>
                             <td>{{$user->name}}</td>
