@@ -72,7 +72,7 @@ $config = [
                                     <select name="colaborador" class="form-control tipo_link">
                                         <option value="">Selecione o colaborador</option>
                                         @foreach($users as $user)
-                                            @if (Auth::user()->id != $user->id)
+                                            @if (Auth::user()->empresa == $user->empresa)
                                             <option value="{{ $user->id }}" {{ (old('colaborador') == $user->id ? 'selected' : '') }}>
                                                 {{ $user->name }} - ({{ $user->empresaObject->alias_name ?? '' }})
                                             </option>
