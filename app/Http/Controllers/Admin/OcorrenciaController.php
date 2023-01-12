@@ -9,6 +9,7 @@ use App\Models\Empresa;
 use App\Models\Ocorrencia;
 use App\Models\OcorrenciaTemplate;
 use App\Models\User;
+use App\Models\UserOcorrencia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -56,9 +57,22 @@ class OcorrenciaController extends Controller
     public function ocorrenciaView(Request $request)
     {
         $ocorrenciaView = Ocorrencia::where('id', $request->id)->first();
+        $view = UserOcorrencia::where('user', Auth::user()->id)->where('ocorrencia', $ocorrenciaView->id)->first();
+        if(empty($view)){
+            $data['user'] = Auth::user()->id;
+            $data['ocorrencia'] = $ocorrenciaView->id;
+            $data['status'] = 1;        
+            $assinar = UserOcorrencia::create($data);
+            $assinar->save();
+        }
+        $assinatura = [];
+        foreach($ocorrenciaView->visualizacoes()->get() as $ass){
+            $assinatura['name'] = $ass->usuario->name;
+        }
         $json = [
             'content' => $ocorrenciaView->content,
-            'titulo' => $ocorrenciaView->titulo
+            'titulo' => $ocorrenciaView->titulo,
+            'assinatura' => $assinatura
         ];
         return response()->json($json);
     }

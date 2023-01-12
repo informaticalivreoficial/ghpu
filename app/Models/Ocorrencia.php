@@ -52,4 +52,9 @@ class Ocorrencia extends Model
     {
         return $this->hasMany(ComentarioOcorrencia::class, 'ocorrencia', 'id')->count();
     }
+
+    public function visualizacoes()
+    {
+        return $this->hasMany(UserOcorrencia::class, 'ocorrencia', 'id');
+    }
 }

@@ -278,4 +278,13 @@ class UserController extends Controller
         
         return redirect()->route('users.'.$page)->with(['color' => 'success', 'message' => $perfil.' removido com sucesso!']);
     }
+
+    public function showColaborador($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        return view('admin.users.colaborador-view',[
+            'user' => $user
+        ]);
+    }
 }

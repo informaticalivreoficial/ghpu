@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\{
     ConfigController,
     EmpresaController,
     MenuController,
+    MsgUserController,
     OcorrenciaController,
     SitemapController,
 };
@@ -170,7 +171,10 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     //******************** Sitemap *********************************************/
     Route::get('gerarxml', [SitemapController::class, 'gerarxml'])->name('gerarxml');
 
+    //Colaboradores
     Route::get('/', [AdminController::class, 'home'])->name('home');
+    Route::get('/sendUserMsg', [MsgUserController::class, 'sendUserMsg'])->name('sendUserMsg');
+    Route::get('colaborador/view/{id}', [UserController::class, 'showColaborador'])->name('users.view-colaborador');
     Route::get('/colaborador', [AdminController::class, 'colaborador'])->name('colaborador');
     Route::post('/sendComment', [ComentarioOcorrenciaController::class, 'sendComment'])->name('sendComment');
     Route::post('/commentCount', [ComentarioOcorrenciaController::class, 'ocorrenciaCount'])->name('ocorrenciaCount');

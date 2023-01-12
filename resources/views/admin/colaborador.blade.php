@@ -9,7 +9,7 @@
     </div><!-- /.col -->
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Início</a></li>
+            <li class="breadcrumb-item"><a href="{{route('home')}}">Início</a></li>
             <li class="breadcrumb-item active">Painel de Controle</li>
         </ol>
     </div><!-- /.col -->
@@ -62,7 +62,7 @@
                                     <div class="user-block">
                                         <img class="img-circle img-bordered-sm" src="{{$cover}}" alt="{{$item->user->name}}">
                                         <span class="username">
-                                            <a href="#">{{$item->user->name}}</a>
+                                            <a href="{{route('users.view-colaborador',['id' => $item->user->id])}}">{{$item->user->name}}</a>
                                             @if ($item->user->id == auth()->user()->id) - 
                                                 <a href="{{route('ocorrencias.edit',['id' => $item->id])}}" class="text-right"><i class="fas fa-pen"></i></a>
                                             @endif
@@ -118,6 +118,9 @@
                 <span class="j_param_data"></span>
             </div>
             <div class="modal-footer justify-content-between">
+                <p>
+                    Visualizado por: <span class="j_param_assinatura"></span>
+                </p>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
             </div>
         </div>
@@ -211,10 +214,17 @@
                 },
                 type: 'GET',
                 dataType: 'JSON',
-                success: function(data){
+                success: function(data){                                       
                     if(data.titulo){
+                        $('.j_param_assinatura').html('');
+                        var fragment="";
                         $('.j_param_data').html(data.content);                  
-                        $('.j_param_titulo').html(data.titulo);                  
+                        $('.j_param_titulo').html(data.titulo); 
+                        $.each(data.assinatura, function (k, value) { 
+                            fragment +="<b>"+ value +"</b>";
+                        });
+
+                        $('.j_param_assinatura').append(fragment);                  
                     }
                 }
             });
