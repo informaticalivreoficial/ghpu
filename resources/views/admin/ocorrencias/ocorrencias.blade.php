@@ -43,7 +43,17 @@
                     <tbody> 
                         @foreach($ocorrencias as $ocorrencia)
                         <tr>
-                            <td>{{$ocorrencia->titulo}}</td>
+                            <td class="tooltip-demo well">                                
+                                @if($ocorrencia->visualizacoes()->get()->count())
+                                <a data-html="true" rel="tooltip" href="javascript:void(0)" title="
+                                    @foreach($ocorrencia->visualizacoes()->get() as $ass)
+                                    {{$ass->usuario->name}} <br>
+                                    @endforeach
+                                    ">{{$ocorrencia->titulo}}</a>
+                                @else
+                                    {{$ocorrencia->titulo}}
+                                @endif
+                                </td>
                             <td>{{$ocorrencia->user->name}}</td>
                             <td class="text-center">{{\Carbon\Carbon::parse($ocorrencia->created_at)->format('d/m/Y - H:i')}}</td>                            
                             <td>
@@ -109,6 +119,9 @@
 <script src="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.min.js'))}}"></script>
 <script src="{{url(asset('backend/plugins/bootstrap-toggle/bootstrap-toggle.min.js'))}}"></script>
 <script>
+    $('.tooltip-demo.well').tooltip({
+        selector: "a[rel=tooltip]"
+    });
    $(function () { 
        
        $.ajaxSetup({
