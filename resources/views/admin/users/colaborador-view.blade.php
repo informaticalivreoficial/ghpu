@@ -40,16 +40,15 @@
                     <p class="text-muted text-center">{{$user->funcao}}</p>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <b>Followers</b> <a class="float-right">1,322</a>
+                            <b>Ocorrências</b> <a class="float-right">{{$user->countOcorrencia() ?? '0'}}</a>
                         </li>
-                        <li class="list-group-item">
+                        {{--<li class="list-group-item">
                             <b>Following</b> <a class="float-right">543</a>
                         </li>
                         <li class="list-group-item">
                             <b>Friends</b> <a class="float-right">13,287</a>
-                        </li>
+                        </li>--}}
                     </ul>
-                    <a href="#" class="btn btn-primary btn-block"><b>Enviar Mensagem</b></a>
                 </div>    
             </div>    
         </div>
@@ -80,7 +79,7 @@
                                 </div> 
                                 <div class="form-group row form_hide">
                                     <div class="offset-sm-2 col-sm-10">
-                                        <button type="submit" class="btn btn-danger btncheckout noclear">Enviar Mensagem</button>
+                                        <button type="submit" class="btn btn-success btncheckout noclear">Enviar Mensagem</button>
                                     </div>
                                 </div>
                             </form>

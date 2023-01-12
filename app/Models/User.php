@@ -82,6 +82,11 @@ class User extends Authenticatable
         return $this->hasOne(Empresa::class, 'id', 'empresa');
     }
 
+    public function countOcorrencia()
+    {
+        return $this->hasMany(Ocorrencia::class, 'colaborador', 'id')->count();
+    }
+
     /**
      * Scopes
      */
