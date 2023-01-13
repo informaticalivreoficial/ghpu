@@ -11,8 +11,14 @@ class MsgUser extends Model
 
     protected $table = 'msg_users';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable = [
         'user',
+        'remetente',
         'titulo',
         'content',
         'status'

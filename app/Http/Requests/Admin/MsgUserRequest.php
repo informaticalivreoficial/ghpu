@@ -28,5 +28,5 @@ class MsgUserRequest extends FormRequest
             'titulo' => 'required|min:3|max:191',
             'content' => 'nullable|min:3'
         ];
-    }
+    }    
 }

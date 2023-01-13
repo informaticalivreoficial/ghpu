@@ -9,9 +9,22 @@ use Illuminate\Http\Request;
 
 class MsgUserController extends Controller
 {
-    public function sendUserMsg(MsgUserRequest $request)
+    public function sendUserMsg(Request $request)
     {
-        //$criaMsg = MsgUser::create($request->all());
-        response()->json($request->all());
+        if(empty($request->titulo)){
+            $json = "Por favor preencha o campo <strong>título</strong>";
+            return response()->json(['error' => $json]);
+        }
+        
+        if(empty($request->content)){
+            $json = "Por favor preencha o campo <strong>Mensagem</strong>";
+            return response()->json(['error' => $json]);
+        }
+
+        $createMsg = MsgUser::create($request->all());
+        $createMsg->save();
+
+        $json = "Sua mensagem foi enviada com sucesso!"; 
+        return response()->json(['sucess' => $json]);
     }
 }

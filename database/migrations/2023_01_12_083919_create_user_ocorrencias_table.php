@@ -15,7 +15,8 @@ class CreateUserOcorrenciasTable extends Migration
     {
         Schema::create('user_ocorrencias', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user');            
+            $table->unsignedInteger('user');   
+            $table->integer('remetente')->nullable();         
             $table->unsignedInteger('ocorrencia');            
             $table->integer('status')->nullable();
 

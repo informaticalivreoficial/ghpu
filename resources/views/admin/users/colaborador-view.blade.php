@@ -38,9 +38,18 @@
                     </div>
                     <h3 class="profile-username text-center">{{$user->name}}</h3>
                     <p class="text-muted text-center">{{$user->funcao}}</p>
+                    @if ($user->email)
+                        <p class="text-muted text-center"><b>Email</b><br>{{$user->email}}</p>
+                    @endif
+                    @if ($user->celular)
+                        <p class="text-muted text-center"><b>Telefone</b><br>{{$user->celular}}</p>
+                    @endif
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                             <b>Ocorrências</b> <a class="float-right">{{$user->countOcorrencia() ?? '0'}}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Último acesso:</b> <a class="float-right">{{\Carbon\Carbon::parse($user->last_login_at)->format('d/m - H:i')}}</a>
                         </li>
                         {{--<li class="list-group-item">
                             <b>Following</b> <a class="float-right">543</a>
@@ -68,6 +77,8 @@
                                 <div class="form-group row form_hide">
                                     <label for="inputSkills" class="col-sm-2 col-form-label">Assunto</label>
                                     <div class="col-sm-10">
+                                        <input type="hidden" name="user" value="{{$user->id}}">
+                                        <input type="hidden" name="remetente" value="{{auth()->user()->id}}">
                                         <input type="text" class="form-control" name="titulo" id="inputSkills" placeholder="Assunto">
                                     </div>
                                 </div>
@@ -89,6 +100,8 @@
             </div>    
         </div>
     </div>
+
+        
 @endsection
 
 @section('js')
@@ -109,14 +122,13 @@
                     form.find('.btncheckout').html("Carregando..."); 
                 },
                 success: function(resposta){
-                    console.log(resposta);
                     if(resposta.error){
                         toastr.error(resposta.error);                                            
                     }else{
-                        toastr.success(resposta.success);                   
+                        toastr.success(resposta.sucess);                   
                         form.find('input[class!="noclear"]').val('');
                         form.find('textarea[class!="noclear"]').val('');
-                        form.find('.form_hide').fadeOut(500);
+                        //form.find('.form_hide').fadeOut(500);
                     }
                 },
                 complete: function(resposta){
