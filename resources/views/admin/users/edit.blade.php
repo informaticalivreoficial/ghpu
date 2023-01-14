@@ -74,7 +74,7 @@
                                                             $cover = url(asset('backend/assets/images/image.jpg'));
                                                         }
                                                     @endphp
-                                                    <img id="preview" height="280" src="{{$cover}}" alt="{{ old('name') ?? $user->name }}" title="{{ old('name') ?? $user->name }}"/>
+                                                    <img id="preview" height="250" src="{{$cover}}" alt="{{ old('name') ?? $user->name }}" title="{{ old('name') ?? $user->name }}"/>
                                                     <input id="img-input" type="file" name="avatar">
                                                 </div>                                                
                                             </div>
