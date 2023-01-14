@@ -74,7 +74,7 @@
                                                             $cover = url(asset('backend/assets/images/image.jpg'));
                                                         }
                                                     @endphp
-                                                    <img id="preview" height="320" src="{{$cover}}" alt="{{ old('name') ?? $user->name }}" title="{{ old('name') ?? $user->name }}"/>
+                                                    <img id="preview" height="280" src="{{$cover}}" alt="{{ old('name') ?? $user->name }}" title="{{ old('name') ?? $user->name }}"/>
                                                     <input id="img-input" type="file" name="avatar">
                                                 </div>                                                
                                             </div>
@@ -412,11 +412,13 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-3 mb-2">
-                                            @foreach($roles as $role)                                        
-                                                <div class="form-check mb-1">
-                                                    <input id="acl_{{ $role->id }}" class="form-check-input" type="checkbox"  name="acl_{{ $role->id }}" {{ ($role->can == 1 ? 'checked' : '') }}>
-                                                    <label for="acl_{{ $role->id }}" class="form-check-label">{{ $role->name }}</label>
-                                                </div>                                        
+                                            @foreach($roles as $role)   
+                                                @if ($role->id != 3)
+                                                    <div class="form-check mb-1">
+                                                        <input id="acl_{{ $role->id }}" class="form-check-input" type="checkbox"  name="acl_{{ $role->id }}" {{ ($role->can == 1 ? 'checked' : '') }}>
+                                                        <label for="acl_{{ $role->id }}" class="form-check-label">{{ $role->name }}</label>
+                                                    </div>
+                                                @endif                                  
                                             @endforeach
                                         </div>
                                     </div>

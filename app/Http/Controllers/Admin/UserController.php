@@ -26,10 +26,10 @@ class UserController extends Controller
         }
 
         $users = User::orderBy('created_at', 'DESC')
-        ->orderBy('status', 'ASC')
-        ->where('client', '1')
-        ->orWhere('editor', '1')
-        ->paginate(25);
+                ->orderBy('status', 'ASC')
+                ->where('client', '1')
+                ->orWhere('editor', '1')                
+                ->paginate(25);
 
         return view('admin.users.index',[
             'users' => $users
