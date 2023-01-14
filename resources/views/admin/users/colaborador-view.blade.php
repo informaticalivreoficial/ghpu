@@ -34,7 +34,7 @@
                                 }
                             }
                         @endphp
-                        <img class="profile-user-img img-fluid img-circle" src="{{$cover}}" alt="{{$user->name}}">
+                        <img style="height: 100px !important;width:100px !important;" class="profile-user-img img-fluid img-circle" src="{{$cover}}" alt="{{$user->name}}">
                     </div>
                     <h3 class="profile-username text-center">{{$user->name}}</h3>
                     <p class="text-muted text-center">{{$user->funcao}}</p>
@@ -77,8 +77,9 @@
                                 <div class="form-group row form_hide">
                                     <label for="inputSkills" class="col-sm-2 col-form-label">Assunto</label>
                                     <div class="col-sm-10">
-                                        <input type="hidden" name="user" value="{{$user->id}}">
-                                        <input type="hidden" name="remetente" value="{{auth()->user()->id}}">
+                                        <input type="hidden" class="noclear" name="user" value="{{$user->id}}">
+                                        <input type="hidden" class="noclear" name="remetente" value="{{auth()->user()->id}}">
+                                        <input type="hidden" class="noclear" name="status" value="1">
                                         <input type="text" class="form-control" name="titulo" id="inputSkills" placeholder="Assunto">
                                     </div>
                                 </div>

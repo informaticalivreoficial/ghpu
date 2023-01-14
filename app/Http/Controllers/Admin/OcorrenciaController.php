@@ -34,7 +34,10 @@ class OcorrenciaController extends Controller
             return Redirect::route('colaborador');
         }
 
-        $ocorrencias = Ocorrencia::orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->where('empresa', $empresa)->paginate(50);
+        $ocorrencias = Ocorrencia::orderBy('created_at', 'DESC')
+                    ->orderBy('status', 'ASC')
+                    ->where('empresa', $empresa)
+                    ->paginate(50);
         $empresaView = Empresa::where('id', $empresa)->first();
         return view('admin.ocorrencias.ocorrencias', [
             'ocorrencias' => $ocorrencias,

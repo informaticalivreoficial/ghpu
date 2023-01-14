@@ -283,6 +283,10 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->first();
 
+        if(Auth::user()->id == $user->id){
+            return Redirect::route('users.edit', Auth::user()->id);
+        }
+
         return view('admin.users.colaborador-view',[
             'user' => $user
         ]);

@@ -11,14 +11,10 @@ class MsgUser extends Model
 
     protected $table = 'msg_users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
         'user',
         'remetente',
+        'resp_id',
         'titulo',
         'content',
         'status'
@@ -36,4 +32,22 @@ class MsgUser extends Model
     {
         return $query->where('status', 0);
     }
+
+    /**
+     * Relacionamentos
+    */
+    public function children()
+    {
+        return $this->hasMany(MsgUser::class, 'resp_id', 'id');
+    }
+
+    public function colaborador()
+    {
+        return $this->hasOne(User::class, 'id', 'remetente');
+    }
+
+    /**
+     * Accerssors and Mutators
+    */
+    
 }

@@ -333,6 +333,16 @@ return [
             ]
         ],
         [
+            'text' => 'Mensagens',            
+            'icon' => 'fas fa-fw fa-comment',
+            'submenu' => [
+                [
+                    'text' => 'Listar Mensagens',
+                    'url'  => 'admin/mensagens',
+                ],                
+            ]
+        ],
+        [
             'text' => 'Segurança',            
             'icon' => 'fas fa-fw fa-lock',
             'can' => 'Segurança',

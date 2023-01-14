@@ -173,10 +173,14 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 
     //Colaboradores
     Route::get('/', [AdminController::class, 'home'])->name('home');
+    Route::get('/mensagens', [MsgUserController::class, 'index'])->name('mensagens.index');
     Route::get('/sendUserMsg', [MsgUserController::class, 'sendUserMsg'])->name('sendUserMsg');
     Route::get('colaborador/view/{id}', [UserController::class, 'showColaborador'])->name('users.view-colaborador');
     Route::get('/colaborador', [AdminController::class, 'colaborador'])->name('colaborador');
     Route::post('/sendComment', [ComentarioOcorrenciaController::class, 'sendComment'])->name('sendComment');
+    Route::post('/sendResposta', [MsgUserController::class, 'sendResposta'])->name('sendResposta');
+    Route::get('/loadResposta', [MsgUserController::class, 'loadResposta'])->name('loadResposta');
+    Route::get('msg/set-status', [MsgUserController::class, 'msgSetStatus'])->name('msgSetStatus');
     Route::post('/commentCount', [ComentarioOcorrenciaController::class, 'ocorrenciaCount'])->name('ocorrenciaCount');
     Route::get('/ocorrenciaView', [OcorrenciaController::class, 'ocorrenciaView'])->name('ocorrenciaView');
     Route::get('/loadComentarios', [ComentarioOcorrenciaController::class, 'loadComentarios'])->name('loadComentarios');
