@@ -65,7 +65,7 @@
                     </thead>
                     <tbody>
                         @foreach($users as $user)  
-                            @if ($user->empresa == auth()->user()->empresa)
+                            @if ($user->empresa == auth()->user()->empresa || auth()->user()->superadmin == 1)
                             <tr style="{{ ($user->status == '1' ? '' : 'background: #fffed8 !important;')  }}">
                                 @php
                                     if(!empty($user->avatar) && \Illuminate\Support\Facades\Storage::exists($user->avatar)){
