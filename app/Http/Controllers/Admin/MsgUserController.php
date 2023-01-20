@@ -29,7 +29,7 @@ class MsgUserController extends Controller
     public function sendUserMsg(Request $request)
     {
         if(empty($request->titulo)){
-            $json = "Por favor preencha o campo <strong>título</strong>";
+            $json = "Por favor preencha o campo <strong>Assunto</strong>";
             return response()->json(['error' => $json]);
         }
         

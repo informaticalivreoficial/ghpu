@@ -3,12 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Menu;
-use App\Models\NewsletterCat;
-use App\Models\WhatsappCat;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        URL::forceScheme('https');
+        //URL::forceScheme('https');
         Schema::defaultStringLength(191);
         Blade::aliasComponent('admin.components.message', 'message');
         
@@ -42,7 +41,12 @@ class AppServiceProvider extends ServiceProvider
 
         $configuracoes = \App\Models\Configuracoes::find(1); 
         View()->share('configuracoes', $configuracoes);
-        
+
+        $dds = View()->share('currentUser', Auth::user());
+        dd($dds);
+        // $msgs = \App\Models\MsgUser::where('user', Auth::user())->where('status', 1)->get(); 
+        // View()->share('msgs', $msgs);
+        // dd($msgs);
         Paginator::useBootstrap();
     }
 }
