@@ -40,7 +40,7 @@
                             }
                         }
                     @endphp
-                    @if ($item->remetente != auth()->user()->id)
+                    @if ($item->remetente != auth()->user()->id && $item->user == auth()->user()->id)
                         <div>                        
                             <img style="margin-left: 18px;" width="30" height="30" class="img-circle elevation-2" src="{{$cover}}" alt="{{$item->colaborador->name}}">
                             
