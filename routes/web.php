@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\{
     EmpresaController,
     MenuController,
     MsgUserController,
+    NotificationController,
     OcorrenciaController,
     SitemapController,
 };
@@ -22,7 +23,6 @@ use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Web\RssFeedController;
 use App\Http\Controllers\Web\SendEmailController;
-use App\Http\Controllers\Web\SendWhatsappController;
 use App\Http\Controllers\Web\WebController;
 
 Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
@@ -184,6 +184,11 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::post('/commentCount', [ComentarioOcorrenciaController::class, 'ocorrenciaCount'])->name('ocorrenciaCount');
     Route::get('/ocorrenciaView', [OcorrenciaController::class, 'ocorrenciaView'])->name('ocorrenciaView');
     Route::get('/loadComentarios', [ComentarioOcorrenciaController::class, 'loadComentarios'])->name('loadComentarios');
+    
+    Route::get('/notifications', [NotificationController::class, 'notifications'])->name('notifications');
+    Route::put('/notification-all-read', [NotificationController::class, 'markAllAsRead']);
+    Route::put('/notification-read', [NotificationController::class, 'markAsRead']);
+
 });
 
 Route::post('/loginrg', [AuthController::class, 'loginRg'])->name('login.do');
