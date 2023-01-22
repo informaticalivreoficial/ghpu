@@ -30,12 +30,15 @@
 
         {{-- Configured Stylesheets --}}
         @include('adminlte::plugins', ['type' => 'css'])
-
+        
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
@@ -109,13 +112,13 @@
             </div>
         </div>
     </div>
-
+    
     {{-- Base Scripts --}}
     @if(!config('adminlte.enabled_laravel_mix'))
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-
+        
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])
 
@@ -123,7 +126,9 @@
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
     @endif
-
+    <script src="{{ asset('js/app.js') }}"></script>
+    
+    
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
         @if(app()->version() >= 7)
@@ -138,6 +143,7 @@
 
     <script>
         $(function () { 
+            
     
             $.ajaxSetup({
                 headers: {

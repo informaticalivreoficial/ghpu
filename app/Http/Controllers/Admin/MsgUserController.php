@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MsgUser;
+use App\Models\User;
+use App\Notifications\MsgUser as NotificationsMsgUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -40,6 +42,9 @@ class MsgUserController extends Controller
 
         $createMsg = MsgUser::create($request->all());
         $createMsg->save();
+
+        $mensagem = User::find($createMsg->user);
+        $mensagem->notify(new NotificationsMsgUser($createMsg));
 
         $json = "Sua mensagem foi enviada com sucesso!"; 
         return response()->json(['sucess' => $json]);
