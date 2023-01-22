@@ -2,28 +2,6 @@
 
 @section('title', 'Escrever Mensagem')
 
-@php
-$config = [
-    "height" => "300",
-    "fontSizes" => ['8', '9', '10', '11', '12', '14', '18'],
-    "lang" => 'pt-BR',
-    "toolbar" => [
-        // [groupName, [list of button]]
-        ['style', ['style']],
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        //['font', ['strikethrough', 'superscript', 'subscript']],        
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video','hr']],
-        ['view', ['fullscreen', 'codeview']],
-    ],
-]
-@endphp
-
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
@@ -100,7 +78,7 @@ $config = [
                     <input class="form-control" name="assunto" placeholder="Assunto:" value="">
                 </div>
                 <div class="form-group">
-                    <x-adminlte-text-editor name="mensagem" v :config="$config">
+                    <textarea id="compose-textarea" name="mensagem">
                         <p>Olá {{ $destinatario['nome'] ?? '' }},</p> 
                         <p>{{ \App\Helpers\Renato::getPrimeiroNome(auth()->user()->name) }} digite sua mensagem aqui...</p>
                         <p style="font-size:11px;text-align:left;color:#666;margin-top: 40px;line-height:1em !important;">
@@ -134,7 +112,7 @@ $config = [
                             }
                         @endphp                                
                         </p>
-                    </x-adminlte-text-editor>                    
+                    </textarea>                   
                 </div>
                 
                 <div class="form-group">
@@ -161,9 +139,38 @@ $config = [
 
 @endsection
 
+@section('css')
+<!-- summernote -->
+<link rel="stylesheet" href="{{url(asset('backend/plugins/summernote/summernote-bs4.css'))}}">
+@endsection
+
 @section('js')
+<!-- Bootstrap 4 -->
+<script src="{{url(asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js'))}}"></script>
+<!-- Summernote -->
+<script src="{{url(asset('backend/plugins/summernote/summernote-bs4.min.js'))}}"></script>
+<!-- include summernote-pt-BR -->
+<script src="{{url(asset('backend/plugins/summernote/lang/summernote-pt-BR.js'))}}"></script>
     <script>
         $(function () {
+
+            //EDITOR CONFIGURAÇÕES GLOBAIS
+            $('#compose-textarea').summernote({
+                fontSizes: ['8', '9', '10', '11', '12', '14', '18'],
+                minHeight: 300,
+                lang: 'pt-BR', // default: 'en-US'
+                toolbar: [
+                ['style', ['style']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video','hr']],
+                ['view', ['fullscreen', 'codeview']]
+                ]
+            });
 
             // FUNÇÃO PARA EXCLUIR OS ANEXOS DO EMAIL
             $('input[name="anexos[]').change(function (anexos){
