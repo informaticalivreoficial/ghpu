@@ -2,30 +2,6 @@
 
 @section('title', 'Cadastrar Post')
 
-@php
-$config = [
-    "height" => "300",
-    "fontSizes" => ['8', '9', '10', '11', '12', '14', '18'],
-    "lang" => 'pt-BR',
-    "toolbar" => [
-        // [groupName, [list of button]]
-        ['style', ['style']],
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        //['font', ['strikethrough', 'superscript', 'subscript']],        
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video','hr']],
-        ['view', ['fullscreen', 'codeview']],
-    ],
-]
-@endphp
-
-
-
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
@@ -158,7 +134,7 @@ $config = [
                                     </div>
                                     <div class="col-12">   
                                         <label class="labelforms"><b>Conteúdo:</b></label>
-                                        <x-adminlte-text-editor name="content" v placeholder="Conteúdo do post..." :config="$config">{{ old('content') }}</x-adminlte-text-editor>                                                      
+                                        <textarea id="compose-textarea" name="content" placeholder="Escreva o conteúdo aqui">{{ old('content') }}</textarea>                                                     
                                     </div>
                                 </div> 
                             </div> 
@@ -195,6 +171,8 @@ $config = [
 @stop
 
 @section('css')
+<!-- summernote -->
+<link rel="stylesheet" href="{{url(asset('backend/plugins/summernote/summernote-bs4.css'))}}">
     <!--tags input-->
     <link rel="stylesheet" href="{{url('backend/plugins/jquery-tags-input/jquery.tagsinput.css')}}" />
     <link href="{{url(asset('backend/plugins/airdatepicker/css/datepicker.min.css'))}}" rel="stylesheet" type="text/css">
@@ -249,6 +227,12 @@ $config = [
 @stop
 
 @section('js')
+<!-- Bootstrap 4 -->
+<script src="{{url(asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js'))}}"></script>
+<!-- Summernote -->
+<script src="{{url(asset('backend/plugins/summernote/summernote-bs4.min.js'))}}"></script>
+<!-- include summernote-pt-BR -->
+<script src="{{url(asset('backend/plugins/summernote/lang/summernote-pt-BR.js'))}}"></script>
 <!--tags input-->
 <script src="{{url('backend/plugins/jquery-tags-input/jquery.tagsinput.js')}}"></script>
 <script src="{{url(asset('backend/plugins/airdatepicker/js/datepicker.min.js'))}}"></script>
@@ -261,6 +245,25 @@ $config = [
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             }); 
+
+            //EDITOR CONFIGURAÇÕES GLOBAIS
+            $('#compose-textarea').summernote({
+                fontSizes: ['8', '9', '10', '11', '12', '14', '18'],
+                tabsize: 2,
+                minHeight: 300,
+                lang: 'pt-BR', // default: 'en-US'
+                toolbar: [
+                ['style', ['style']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video','hr']],
+                ['view', ['fullscreen', 'codeview']]
+                ]
+            });
             
             // Função para chamar as categorias do Post
             $('.categoria').attr('disabled', true);

@@ -2,28 +2,6 @@
 
 @section('title', 'Cadastrar Modelo de Ocorrência')
 
-@php
-$config = [
-    "height" => "500",
-    "fontSizes" => ['8', '9', '10', '11', '12', '14', '18'],
-    "lang" => 'pt-BR',
-    "toolbar" => [
-        // [groupName, [list of button]]
-        ['style', ['style']],
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        //['font', ['strikethrough', 'superscript', 'subscript']],        
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video','hr']],
-        ['view', ['fullscreen', 'codeview']],
-    ],
-]
-@endphp
-
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
@@ -88,7 +66,7 @@ $config = [
                         <div class="row mb-4">
                             <div class="col-12">   
                                 <label class="labelforms text-muted"><b>Conteúdo:</b></label>
-                                <x-adminlte-text-editor name="content" v placeholder="Conteúdo..." :config="$config">{{ old('content') }}</x-adminlte-text-editor>                                                      
+                                <textarea id="compose-textarea" name="content" placeholder="Escreva o conteúdo aqui">{{ old('content') }}</textarea>                                                      
                             </div> 
                         </div>
                         </form>
@@ -98,6 +76,40 @@ $config = [
         </div>
 @endsection
 
+@section('css')
+<!-- summernote -->
+<link rel="stylesheet" href="{{url(asset('backend/plugins/summernote/summernote-bs4.css'))}}">
+@endsection
+
 @section('js')
-    
+    <!-- Bootstrap 4 -->
+<script src="{{url(asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js'))}}"></script>
+<!-- Summernote -->
+<script src="{{url(asset('backend/plugins/summernote/summernote-bs4.min.js'))}}"></script>
+<!-- include summernote-pt-BR -->
+<script src="{{url(asset('backend/plugins/summernote/lang/summernote-pt-BR.js'))}}"></script>
+<script>
+    $(function () {    
+        
+        //EDITOR CONFIGURAÇÕES GLOBAIS
+        $('#compose-textarea').summernote({
+            fontSizes: ['8', '9', '10', '11', '12', '14', '18'],
+            tabsize: 2,
+            minHeight: 300,
+            lang: 'pt-BR', // default: 'en-US'
+            toolbar: [
+            ['style', ['style']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video','hr']],
+            ['view', ['fullscreen', 'codeview']]
+            ]
+        });
+         
+    });
+</script>
 @endsection

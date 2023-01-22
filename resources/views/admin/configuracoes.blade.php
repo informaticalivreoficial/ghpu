@@ -2,28 +2,6 @@
 
 @section('title', 'Configurações')
 
-@php
-$config1 = [
-    "height" => "300",
-    "fontSizes" => ['8', '9', '10', '11', '12', '14', '18'],
-    "lang" => 'pt-BR',
-    "toolbar" => [
-        // [groupName, [list of button]]
-        ['style', ['style']],
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        //['font', ['strikethrough', 'superscript', 'subscript']],        
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video','hr']],
-        ['view', ['fullscreen', 'codeview']],
-    ],
-]
-@endphp
-
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
@@ -260,7 +238,7 @@ $config1 = [
                                 <div class="row mb-2">
                                     <div class="col-12">   
                                         <label class="labelforms text-muted"><b>Política de Privacidade</b></label>
-                                        <x-adminlte-text-editor name="politicas_de_privacidade" v placeholder="Política de Privacidade..." :config="$config1">{{ old('politicas_de_privacidade') ?? $config->politicas_de_privacidade }}</x-adminlte-text-editor>                                                                                     
+                                        <textarea id="compose-textarea" name="politicas_de_privacidade" placeholder="Política de Privacidade...">{{ old('politicas_de_privacidade') ?? $config->politicas_de_privacidade }}</textarea>                                                
                                     </div>                                    
                                 </div>
                             </div> 
@@ -571,6 +549,8 @@ $config1 = [
 @stop
 
 @section('css')
+<!-- summernote -->
+<link rel="stylesheet" href="{{url(asset('backend/plugins/summernote/summernote-bs4.css'))}}">
 <!--tags input-->
 <link rel="stylesheet" href="{{url(asset('backend/plugins/jquery-tags-input/jquery.tagsinput.css'))}}" />
 <style>
@@ -608,6 +588,12 @@ $config1 = [
 @section('plugins.Toastr', true)
 
 @section('js')
+<!-- Bootstrap 4 -->
+<script src="{{url(asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js'))}}"></script>
+<!-- Summernote -->
+<script src="{{url(asset('backend/plugins/summernote/summernote-bs4.min.js'))}}"></script>
+<!-- include summernote-pt-BR -->
+<script src="{{url(asset('backend/plugins/summernote/lang/summernote-pt-BR.js'))}}"></script>
 <!--tags input-->
 <script src="{{url(asset('backend/plugins/jquery-tags-input/jquery.tagsinput.js'))}}"></script>
 <script src="{{url(asset('backend/assets/js/jquery.mask.js'))}}"></script>
@@ -630,6 +616,25 @@ $config1 = [
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        //EDITOR CONFIGURAÇÕES GLOBAIS
+        $('#compose-textarea').summernote({
+            fontSizes: ['8', '9', '10', '11', '12', '14', '18'],
+            tabsize: 2,
+            minHeight: 300,
+            lang: 'pt-BR', // default: 'en-US'
+            toolbar: [
+            ['style', ['style']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video','hr']],
+            ['view', ['fullscreen', 'codeview']]
+            ]
         });
 
         // BOTÃO SITEMAP
