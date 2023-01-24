@@ -37,9 +37,11 @@ export default {
     },
     computed: {
         notifications () {
+
             if(this.$store.state.notifications.items.length > 0){
                 this.showAlert();
             }
+            
             return this.$store.state.notifications.items
         }
     },
