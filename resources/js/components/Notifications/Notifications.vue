@@ -37,13 +37,19 @@ export default {
     },
     computed: {
         notifications () {
+            if(this.$store.state.notifications.items.length > 0){
+                this.showAlert();
+            }
             return this.$store.state.notifications.items
         }
     },
     methods: {
         markAllAsRead () {
             this.$store.dispatch('markAllAsRead')
-        }
+        },
+        showAlert() {
+            this.$swal("Você tem Mensagens!!!");
+        },
     }    
 }
 </script>
