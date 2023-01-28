@@ -178,6 +178,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('/sendUserMsg', [MsgUserController::class, 'sendUserMsg'])->name('sendUserMsg');
     Route::get('colaborador/view/{id}', [UserController::class, 'showColaborador'])->name('users.view-colaborador');
     Route::get('/colaborador', [AdminController::class, 'colaborador'])->name('colaborador');
+    Route::any('/colaborador/pesquisa', [OcorrenciaController::class, 'searchOcorrenciasColaborador'])->name('ocorrencias.search.colaborador');
     Route::post('/sendComment', [ComentarioOcorrenciaController::class, 'sendComment'])->name('sendComment');
     Route::post('/sendResposta', [MsgUserController::class, 'sendResposta'])->name('sendResposta');
     Route::get('/loadResposta', [MsgUserController::class, 'loadResposta'])->name('loadResposta');

@@ -112,12 +112,11 @@ class AdminController extends Controller
 
     public function colaborador()
     {
-        $ocorrências = Ocorrencia::orderBy('created_at', 'DESC')
-        ->where('empresa', Auth::user()->empresa)
+        $ocorrencias = Ocorrencia::orderBy('created_at', 'DESC')
         ->available()
         ->paginate(25);
         return view('admin.colaborador',[
-            'ocorrências' => $ocorrências
+            'ocorrencias' => $ocorrencias
         ]);
     }
 }

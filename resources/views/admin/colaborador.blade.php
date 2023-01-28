@@ -23,10 +23,11 @@
             <div class="card-header p-2">
                 <div class="row">
                     <div class="col-6">
-                        <h5>Últimas Ocorrências - <b>{{auth()->user()->empresaObject->alias_name}}</b></h5>
+                        <h5>{{(!empty($filter) ? 'Pesquisa de Ocorrências em ' : 'Últimas Ocorrências - ')}} <b>{{auth()->user()->empresaObject->alias_name}}</b></h5>
                     </div>
                     <div class="col-6 text-right">
                         <a href="{{route('ocorrencias.create')}}" class="btn btn-default"><i class="fas fa-plus mr-2"></i> Cadastrar Ocorrência</a>
+                        <a href="#" class="btn btn-default search"><i class="fas fa-search"></i></a>
                     </div>
                 </div>
                 <div class="row">
@@ -36,65 +37,78 @@
                                 {{ session()->get('message') }}
                             @endmessage
                         @endif
-                    </div>            
+                    </div>    
+                    <div class="col-12 mt-3 mb-3 formSearch" style="{{(!empty($filter) ? '' : 'display:none')}}" >
+                        <form action="{{route('ocorrencias.search.colaborador')}}" method="post">
+                            @csrf
+                            <div class="input-group input-group-sm mb-0">
+                                <input class="form-control form-control-sm" name="filter" value="{{$filter ?? ''}}" placeholder="Pesquisar Ocorrência">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-info btn-comment">Pesquisar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>        
                 </div>
                 
             </div>
             <div class="card-body">
                 <div class="tab-content">
                     <div class="tab-pane active scrolling-pagination" id="activity">
-                        @if (!empty($ocorrências) && $ocorrências->count() > 0)
-                            @foreach ($ocorrências as $item)
-                                @php
-                                    if(!empty($item->user->avatar) && \Illuminate\Support\Facades\Storage::exists($item->user->avatar)){
-                                        $cover = \Illuminate\Support\Facades\Storage::url($item->user->avatar);
-                                    } else {
-                                        if($item->user->genero == 'masculino'){
-                                            $cover = url(asset('backend/assets/images/avatar5.png'));
-                                        }elseif($item->user->genero == 'feminino'){
-                                            $cover = url(asset('backend/assets/images/avatar3.png'));
-                                        }else{
-                                            $cover = url(asset('backend/assets/images/image.jpg'));
+                        @if (!empty($ocorrencias) && $ocorrencias->count() > 0)
+                            @foreach ($ocorrencias as $item)
+                                @if ($item->empresa == auth()->user()->empresa && $item->status == 1)
+                                    @php
+                                        if(!empty($item->user->avatar) && \Illuminate\Support\Facades\Storage::exists($item->user->avatar)){
+                                            $cover = \Illuminate\Support\Facades\Storage::url($item->user->avatar);
+                                        } else {
+                                            if($item->user->genero == 'masculino'){
+                                                $cover = url(asset('backend/assets/images/avatar5.png'));
+                                            }elseif($item->user->genero == 'feminino'){
+                                                $cover = url(asset('backend/assets/images/avatar3.png'));
+                                            }else{
+                                                $cover = url(asset('backend/assets/images/image.jpg'));
+                                            }
                                         }
-                                    }
-                                @endphp
-                                <div class="post" style="{{($item->user->id == auth()->user()->id ? 'background: #F0FFFF !important;' : '')}}">
-                                    <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{$cover}}" alt="{{$item->user->name}}">
-                                        <span class="username">
-                                            <a href="{{route('users.view-colaborador',['id' => $item->user->id])}}">{{$item->user->name}}</a>
-                                            @if ($item->user->id == auth()->user()->id) - 
-                                                <a href="{{route('ocorrencias.edit',['id' => $item->id])}}" class="text-right"><i class="fas fa-pen"></i></a>
-                                            @endif
-                                        </span>
-                                        <span class="description">Publicado - {{\Carbon\Carbon::parse($item->created_at)->format('d/m - H:i')}}</span>                                                                                
-                                    </div>                    
-                                    <p>{{$item->titulo}}</p>
-                                    <p>
-                                        <a href="#" data-id="{{$item->id}}" data-toggle="modal" data-target="#modal-default" class="link-black text-sm mr-2 s"><i class="fas fa-search mr-1"></i> Visualizar</a>
-                                        <span class="float-right">
-                                            <a href="#" data-id="{{$item->id}}" class="link-black text-sm open">
-                                                <i class="far fa-comments mr-1"></i> Mensagens (<span id="countComment{{$item->id}}">{{$item->comentariosCount()}}</span>) <span class="msg{{$item->id}}"> ↓</span>
-                                            </a>
-                                        </span>
-                                    </p>
-                                    <div class="resposta{{$item->id}}" style="display: none;"></div>
-                                    <form method="post" action="" autocomplete="off" class="form-horizontal j_formcomment">
-                                        @csrf 
-                                        <div class="input-group input-group-sm mb-0">
-                                            <input type="hidden" class="noclear" name="user" value="{{auth()->user()->id}}" />
-                                            <input type="hidden" class="noclear" name="ocorrencia" value="{{$item->id}}" />
-                                            <input type="hidden" class="noclear" name="status" value="1" />
-                                            <input class="form-control form-control-sm" name="content" placeholder="Escrever Mensagem">
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-danger btn-comment noclear">Enviar</button>
+                                    @endphp
+                                    <div class="post" style="{{($item->user->id == auth()->user()->id ? 'background: #F0FFFF !important;' : '')}}">
+                                        <div class="user-block">
+                                            <img class="img-circle img-bordered-sm" src="{{$cover}}" alt="{{$item->user->name}}">
+                                            <span class="username">
+                                                <a href="{{route('users.view-colaborador',['id' => $item->user->id])}}">{{$item->user->name}}</a>
+                                                @if ($item->user->id == auth()->user()->id) - 
+                                                    <a href="{{route('ocorrencias.edit',['id' => $item->id])}}" class="text-right"><i class="fas fa-pen"></i></a>
+                                                @endif
+                                            </span>
+                                            <span class="description">Publicado - {{\Carbon\Carbon::parse($item->created_at)->format('d/m - H:i')}}</span>                                                                                
+                                        </div>                    
+                                        <p>{{$item->titulo}}</p>
+                                        <p>
+                                            <a href="#" data-id="{{$item->id}}" data-toggle="modal" data-target="#modal-default" class="link-black text-sm mr-2 s"><i class="fas fa-search mr-1"></i> Visualizar</a>
+                                            <span class="float-right">
+                                                <a href="#" data-id="{{$item->id}}" class="link-black text-sm open">
+                                                    <i class="far fa-comments mr-1"></i> Mensagens (<span id="countComment{{$item->id}}">{{$item->comentariosCount()}}</span>) <span class="msg{{$item->id}}"> ↓</span>
+                                                </a>
+                                            </span>
+                                        </p>
+                                        <div class="resposta{{$item->id}}" style="display: none;"></div>
+                                        <form method="post" action="" autocomplete="off" class="form-horizontal j_formcomment">
+                                            @csrf 
+                                            <div class="input-group input-group-sm mb-0">
+                                                <input type="hidden" class="noclear" name="user" value="{{auth()->user()->id}}" />
+                                                <input type="hidden" class="noclear" name="ocorrencia" value="{{$item->id}}" />
+                                                <input type="hidden" class="noclear" name="status" value="1" />
+                                                <input class="form-control form-control-sm" name="content" placeholder="Escrever Mensagem">
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-danger btn-comment noclear">Enviar</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                        </form>
+                                    </div>
+                                @endif                                
                             @endforeach
-                            @if($ocorrências->hasPages())
-                                {{$ocorrências->links()}}  
+                            @if($ocorrencias->hasPages())
+                                {{$ocorrencias->links()}}  
                             @endif
                         @endif        
                     </div>
@@ -170,6 +184,11 @@
 
 <script>
     $(function () {
+
+        $('.search').on('click', function (event) {
+            box = $('.formSearch'); 
+            box.slideToggle();  
+        });
 
         $('.open').on('click', function (event) {
             event.preventDefault();

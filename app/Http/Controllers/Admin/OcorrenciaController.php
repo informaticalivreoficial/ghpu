@@ -77,12 +77,23 @@ class OcorrenciaController extends Controller
         }
 
         $ocorrencias = $this->search->search($request->filter);
-        
-        //dd($search);
+
         return view('admin.ocorrencias.search', [
             'ocorrencias' => $ocorrencias,
             'filter' => $filter,
         ]);
+    }
+
+    public function searchOcorrenciasColaborador(Request $request)
+    {
+        $filter = $request->filter;
+
+        $ocorrencias = $this->search->search($request->filter);
+
+        return view('admin.colaborador', [
+            'ocorrencias' => $ocorrencias,
+            'filter' => $filter,
+        ]); 
     }
 
     public function ocorrenciaView(Request $request)
