@@ -33,6 +33,7 @@
                     @endif
                 </div>            
             </div>
+            <h3 class="card-title">Exibindo {{$ocorrencias->count()}} resuldados</h3>
             <div class="card-tools">
                 <form action="{{route('ocorrencias.search')}}" method="post">
                     @csrf
@@ -60,6 +61,7 @@
                     </thead>
                     <tbody> 
                         @foreach($ocorrencias as $ocorrencia)
+                        @if ($ocorrencia->empresa == auth()->user()->empresa)
                         <tr>
                             <td class="tooltip-demo well">                                
                                 @if($ocorrencia->visualizacoes()->get()->count())
@@ -83,6 +85,7 @@
                                 </button>
                             </td>                            
                         </tr>
+                        @endif                        
                         @endforeach
                     </tbody>                
                 </table>
