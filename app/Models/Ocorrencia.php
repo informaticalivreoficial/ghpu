@@ -57,4 +57,23 @@ class Ocorrencia extends Model
     {
         return $this->hasMany(UserOcorrencia::class, 'ocorrencia', 'id');
     }
+
+    /**
+     * Scopes
+    */
+    public function search($filter = null)
+    {
+        $results = Ocorrencia::select('ocorrencias.id', 'ocorrencias.status', 'ocorrencias.empresa', 'ocorrencias.colaborador', 'ocorrencias.titulo', 'ocorrencias.content')
+                                ->leftJoin('users', function ($query) use ($filter)
+                                {
+                                    $query->on('ocorrencias.colaborador', '=', 'users.id');
+                                })
+                                ->where('ocorrencias.titulo', 'LIKE', "%{$filter}%")
+                                ->orWhere('ocorrencias.content', 'LIKE', "%{$filter}%")
+                                ->orWhere('users.name', 'LIKE', "%{$filter}%")
+                                ->paginate(25);
+                        
+        return $results;
+                        
+    }
 }

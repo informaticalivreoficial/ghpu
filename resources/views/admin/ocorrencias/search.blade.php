@@ -5,15 +5,16 @@
 @section('content_header')
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1><i class="fas fa-search mr-2"></i> Ocorrências {{(!empty($empresa) ? $empresa->alias_name : '')}}</h1>
+        <h1><i class="fas fa-search mr-2"></i> Pesquisa de Ocorrências</h1>
     </div>
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">                    
             <li class="breadcrumb-item"><a href="{{route('home')}}">Painel de Controle</a></li>
             @if (auth()->user()->superadmin == true)
                 <li class="breadcrumb-item"><a href="{{route('ocorrencias.index')}}">Listar Empresas</a></li>
-            @endif
-            <li class="breadcrumb-item active">Gerenciar Ocorrências</li>
+            @endif            
+            <li class="breadcrumb-item"><a href="{{route('ocorrencias.view', [ 'empresa' => auth()->user()->empresa ])}}">Listar Ocorrências</a></li>
+            <li class="breadcrumb-item active">Persquisa</li>
         </ol>
     </div>
 </div>

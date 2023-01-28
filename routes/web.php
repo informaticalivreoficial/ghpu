@@ -124,6 +124,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::get('/empresas', [EmpresaController::class, 'index'])->name('empresas.index');
 
     //****************************** Ocorrências *******************************************/
+    Route::any('ocorrencias/pesquisar', [OcorrenciaController::class, 'searchOcorrencias'])->name('ocorrencias.search');
     Route::get('ocorrencias/set-status', [OcorrenciaController::class, 'setStatus'])->name('ocorrencias.setStatus');
     Route::delete('ocorrencias/deleteon', [OcorrenciaController::class, 'deleteon'])->name('ocorrencias.deleteon');
     Route::get('ocorrencias/delete', [OcorrenciaController::class, 'delete'])->name('ocorrencias.delete');

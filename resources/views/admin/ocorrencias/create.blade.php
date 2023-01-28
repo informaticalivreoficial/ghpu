@@ -69,10 +69,12 @@
                                     <select name="modelo" class="form-control j_modelo">
                                         <option value="">Selecione</option>
                                         <option value="0">Em Branco</option>
-                                        @foreach($modelos as $modelo)                                            
-                                            <option value="{{ $modelo->id }}" {{ (old('modelo') == $modelo->id ? 'selected' : '') }}>
-                                                {{ $modelo->titulo }}
-                                            </option>                                                                                       
+                                        @foreach($modelos as $modelo) 
+                                            @if (Auth::user()->empresa == $modelo->empresa)                                           
+                                                <option value="{{ $modelo->id }}" {{ (old('modelo') == $modelo->id ? 'selected' : '') }}>
+                                                    {{ $modelo->titulo }}
+                                                </option> 
+                                            @endif                                                                                       
                                         @endforeach
                                     </select>
                                 </div>

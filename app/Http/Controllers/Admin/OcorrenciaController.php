@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class OcorrenciaController extends Controller
 {
+    private $search;
+
+    public function __construct(Ocorrencia $search)
+    {
+        $this->search = $search;
+    }
+
     public function index()
     {
         if(Auth::user()->editor == 1){
@@ -58,6 +65,23 @@ class OcorrenciaController extends Controller
         $ocorrenciaView = Ocorrencia::where('id', $ocorrencia)->first();
         return view('admin.ocorrencias.view', [
             'ocorrencia' => $ocorrenciaView
+        ]);
+    }
+
+    public function searchOcorrencias(Request $request)
+    {
+        $filter = $request->filter;
+
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
+        $ocorrencias = $this->search->search($request->filter);
+        
+        //dd($search);
+        return view('admin.ocorrencias.search', [
+            'ocorrencias' => $ocorrencias,
+            'filter' => $filter,
         ]);
     }
 
@@ -176,7 +200,7 @@ class OcorrenciaController extends Controller
             'empresa' => $empresa
         ])->with([            
             'color' => 'success', 
-            'message' => 'Empresa removida com sucesso!'
+            'message' => 'Ocorrência removida com sucesso!'
         ]);
     }
 
