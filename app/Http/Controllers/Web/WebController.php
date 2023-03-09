@@ -16,8 +16,7 @@ use App\Models\{
     Empresa,
     Estados,
     Galeria,
-    Newsletter,
-    Slide,
+    PrevisaoTempo,
     User
 };
 use App\Services\CidadeService;
@@ -49,6 +48,8 @@ class WebController extends Controller
     public function home()
     {
         $empresas = Empresa::orderBy('created_at', 'DESC')->available()->limit(4)->get();
+        $boletim = new PrevisaoTempo('http://servicos.cptec.inpe.br/XML/cidade/5515/previsao.xml');
+        
         $head = $this->seo->render($this->configService->getConfig()->nomedosite ?? 'Informática Livre',
             $this->configService->getConfig()->descricao ?? 'Informática Livre desenvolvimento de sistemas web desde 2005',
             route('web.home'),
@@ -58,6 +59,7 @@ class WebController extends Controller
 		return view('web.'.$this->configService->getConfig()->template.'.home',[
             'head' => $head,   
             'empresas' => $empresas,
+            'boletim' => $boletim->getContent(),
 		]);
     }
 
