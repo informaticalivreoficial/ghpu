@@ -335,12 +335,7 @@ return [
         [
             'text' => 'Mensagens',            
             'icon' => 'fas fa-fw fa-comment',
-            'submenu' => [
-                [
-                    'text' => 'Listar Mensagens',
-                    'url'  => 'admin/mensagens',
-                ],                
-            ]
+            'url'  => 'admin/mensagens',
         ],
         [
             'text' => 'Segurança',            
