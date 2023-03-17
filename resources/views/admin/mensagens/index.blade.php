@@ -22,7 +22,7 @@
 
         @if (!empty($mensagens) && $mensagens->count() > 0)
             <div class="timeline">
-                @foreach ($mensagens as $key => $msg)
+                @foreach ($mensagens as $key => $msg) 
                     <div class="time-label">
                         <span class="bg-gray">{{$key}}</span>
                     </div>

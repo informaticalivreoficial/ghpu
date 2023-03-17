@@ -8,12 +8,13 @@ use App\Models\User;
 use App\Notifications\MsgUser as NotificationsMsgUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MsgUserController extends Controller
 {
     public function index()
     {
-        $mensagens = MsgUser::latest()->get()
+        $mensagens = MsgUser::latest()->where('user', Auth::user()->id)->get()
             ->groupBy(function($date) {
                 return Carbon::parse($date->created_at)->format('M d'); // grouping by day
             });
@@ -59,6 +60,9 @@ class MsgUserController extends Controller
         
         $createMensagem = MsgUser::create($request->all());
         $createMensagem->save();
+
+        $mensagem = User::find($createMensagem->user);
+        $mensagem->notify(new NotificationsMsgUser($createMensagem));
         
         $json = [
             'success' => 'Resposta cadastrada com sucesso!',
