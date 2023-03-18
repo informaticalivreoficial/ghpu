@@ -5,7 +5,7 @@
         <div class="row empresas-logo">
             @if (!empty($empresas) && $empresas->count() > 0)
                 @foreach($empresas as $empresa)
-                    <div class="col-md-3 empresas-logo-logo">
+                    <div class="col-xs-6 col-md-3 empresas-logo-logo">
                         <a href="{{$empresa->link}}" title="{{$empresa->titulo}}">
                         <img alt="{{$empresa->titulo}}" src="{{$empresa->cover()}}"/>
                         </a>
@@ -13,7 +13,7 @@
                 @endforeach
             @endif
 
-            <div class="col-md-6 cotacao">
+            <div class="col-xs-12 col-md-6 cotacao">
                 <h3>Cotações</h3>
                 @php
                     // PEGA COTAÇÃO VIA JSON
