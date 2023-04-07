@@ -50,6 +50,12 @@
     <!-- Favicon Icon -->
     <link rel="icon"  type="image/png" href="{{$configuracoes->getfaveicon()}}"/>
 
+    <style>
+        .toast {
+            top: 60px;
+        }
+    </style>
+
     @hasSection('css')
         @yield('css')
     @endif

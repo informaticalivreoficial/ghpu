@@ -16,7 +16,14 @@ class AuthController extends Controller
             return response()->json($json);
         }
         
-        $user = User::where('rg', $this->clearField($request->rg))->first();
+        $user = User::where('rg', $this->clearField($request->rg))->available()->first();
+
+        if(!$user){
+            $json = ([
+                'message' => 'Colaborador não autorizado!'
+            ]);
+            return response()->json($json);
+        }
 
         $credentials = [
             'email' => $user->email,
