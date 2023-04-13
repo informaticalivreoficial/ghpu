@@ -55,11 +55,11 @@ class WebController extends Controller
             route('web.home'),
             $this->configService->getConfig()->getMetaImg() ?? 'https://informaticalivre.com/media/metaimg.jpg'
         ); 
-
+        
 		return view('web.'.$this->configService->getConfig()->template.'.home',[
             'head' => $head,   
             'empresas' => $empresas,
-            'boletim' => $boletim->getContent(),
+            'boletim' => (!$boletim->conection == null ? $boletim->getContent() : null),
 		]);
     }
 
