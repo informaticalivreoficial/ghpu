@@ -139,15 +139,13 @@
     <footer>
         <div class="container">
             <div class="row justify-content-md-center">
-                <div class="col-md-12">
-                    
+                <div class="col-md-12">                    
                     @if(!empty($boletim))
                         <div class="row">
                             <div class="col-12">
                                 <h3>Previsão do tempo Atualização: <span>{{ Carbon\Carbon::now()->format('d/m/Y') }}</span></h3>    
                             </div>   
-                            @foreach ($boletim as $item)
-                            
+                            @foreach ($boletim as $item)                            
                                 <div class="col-sm-12 col-md-3">                       
                                     <p style="text-align: center;padding-bottom:10px;margin-bottom: 10px;border-bottom: 3px solid #e9eaea;">
                                         <img src="{{url(asset('backend/assets/images/'.$item['img']))}}" alt="" title=""/><br>

@@ -59,7 +59,7 @@ class WebController extends Controller
 		return view('web.'.$this->configService->getConfig()->template.'.home',[
             'head' => $head,   
             'empresas' => $empresas,
-            'boletim' => (!$boletim->conection == null ? $boletim->getContent() : null),
+            'boletim' => $boletim->getContent(),
 		]);
     }
 

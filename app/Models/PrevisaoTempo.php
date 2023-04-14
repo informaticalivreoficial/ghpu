@@ -33,19 +33,23 @@ class PrevisaoTempo extends Model
 
         $result = simplexml_load_string($data);
 
-        foreach($result->previsao as $item){
-            $response[] = [
-                'data' => Carbon::parse($item->dia)->translatedFormat('l d/m/Y'),
-                'img' => $this->getImgPrevisao($item->tempo),
-                'previsao' => $this->getPrevisao($item->tempo),
-                'minima' => $item->minima,
-                'maxima' => $item->maxima,
-                'iuv' => $item->iuv,
-                'iuvcolor' => $this->getUvColor($item->iuv)
-            ];
+        if($result != false){
+            foreach($result->previsao as $item){
+                $response[] = [
+                    'data' => Carbon::parse($item->dia)->translatedFormat('l d/m/Y'),
+                    'img' => $this->getImgPrevisao($item->tempo),
+                    'previsao' => $this->getPrevisao($item->tempo),
+                    'minima' => $item->minima,
+                    'maxima' => $item->maxima,
+                    'iuv' => $item->iuv,
+                    'iuvcolor' => $this->getUvColor($item->iuv)
+                ];
+            }
+    
+            return $response;
+        }else{
+            return null;
         }
-
-        return $response;
     }
 
     public function getPrevisao($sigla)
