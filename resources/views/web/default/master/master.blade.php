@@ -139,6 +139,7 @@
     <footer>
         <div class="container">
             <div class="row justify-content-md-center">
+                {{--
                 <div class="col-md-12">                    
                     @if(!empty($boletim))
                         <div class="row">
@@ -160,6 +161,7 @@
                         </div>
                     @endif
                 </div>
+                --}}
             </div>
         </div>
         <p class="footerP">Copyright&copy; {{$configuracoes->ano_de_inicio}} - {{date('Y')}} {{$configuracoes->nomedosite}} - Todos os direitos reservados.</p>
