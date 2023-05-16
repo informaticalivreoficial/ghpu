@@ -136,7 +136,32 @@
     @yield('content')
     {{-- FIM DO CONTEÚDO DO SITE --}} 
 
-    <footer>        
+    <footer>
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12">                    
+                    @if(!empty($boletim))
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>Previsão do tempo Atualização: <span>{{ Carbon\Carbon::now()->format('d/m/Y') }}</span></h3>    
+                            </div>   
+                            @foreach ($boletim as $item)                            
+                                <div class="col-sm-12 col-md-3">                       
+                                    <p style="text-align: center;padding-bottom:10px;margin-bottom: 10px;border-bottom: 3px solid #e9eaea;">
+                                        <img src="{{url(asset('backend/assets/images/'.$item['img']))}}" alt="" title=""/><br>
+                                        <b>{{$item['data']}}</b><br>
+                                        <b>{{$item['previsao']}}</b><br>                                           
+                                        <b>Mínima:</b> {{$item['minima']}}&deg;<br>   
+                                        <b>Mínima:</b> {{$item['maxima']}}&deg;<br> 
+                                        <b>Índice UV:</b> <span style="padding:5px;{{$item['iuvcolor']}}">{{$item['iuv']}}</span><br>  
+                                    </p>                                   
+                                </div>
+                            @endforeach 
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
         <p class="footerP">Copyright&copy; {{$configuracoes->ano_de_inicio}} - {{date('Y')}} {{$configuracoes->nomedosite}} - Todos os direitos reservados.</p>
         <p class="font-accent text-center">
             <span class="small text-silver-dark">Feito com <i style="color:red;" class="fa fa-heart"></i> por <a target="_blank" href="{{env('DESENVOLVEDOR_URL')}}">{{env('DESENVOLVEDOR')}}</a></span>
