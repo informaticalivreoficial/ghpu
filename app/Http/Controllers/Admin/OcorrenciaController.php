@@ -33,7 +33,7 @@ class OcorrenciaController extends Controller
             return Redirect::route('ocorrencias.view', [ 'empresa' => Auth::user()->empresa ]);
         }
 
-        $empresas = Empresa::orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->paginate(15);
+        $empresas = Empresa::orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->paginate(50);
         return view('admin.ocorrencias.index', [
             'empresas' => $empresas,
         ]);
