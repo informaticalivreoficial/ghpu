@@ -134,6 +134,7 @@ Route::prefix('admin')->middleware('auth')->group( function(){
     Route::post('ocorrencias/store', [OcorrenciaController::class, 'store'])->name('ocorrencias.store');
     Route::get('/ocorrencias', [OcorrenciaController::class, 'index'])->name('ocorrencias.index');
     Route::get('ocorrencias/empresa/{empresa}/view', [OcorrenciaController::class, 'ocorrencias'])->name('ocorrencias.view');
+    Route::get('ocorrencias/empresa/{empresa}/lixeira', [OcorrenciaController::class, 'lixeira'])->name('ocorrencias.lixeira');
     Route::get('ocorrencias/{ocorrencia}/view', [OcorrenciaController::class, 'view'])->name('ocorrencia.view');
     
     //****************************** Modelos *******************************************/

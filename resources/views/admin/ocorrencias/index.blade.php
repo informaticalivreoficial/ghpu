@@ -36,7 +36,6 @@
                             <th>#</th>
                             <th>Empresa</th>
                             <th class="text-center">Ocorrências</th>
-                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody> 
@@ -48,9 +47,9 @@
                                 </a>
                             </td>
                             <td>{{$empresa->alias_name}}</td>
-                            <td class="text-center"><span class="bg-info p-1">{{$empresa->ocorrencias->count()}}</span></td>                            
-                            <td>
-                                <a title="Visualizar Ocorrências" href="{{route('ocorrencias.view', [ 'empresa' => $empresa->id ])}}" class="btn btn-xs btn-info text-white"><i class="fas fa-search"></i></a>
+                            <td class="text-center">
+                                <a title="Visualizar Ocorrências" href="{{route('ocorrencias.view', [ 'empresa' => $empresa->id ])}}" class="btn btn-xs btn-success text-white"><i class="fas fa-search mr-2"></i> {{$empresa->ocorrencias->count()}}</a>
+                                <a title="Lixeira" href="{{route('ocorrencias.lixeira', [ 'empresa' => $empresa->id ])}}" class="btn btn-xs btn-danger text-white"><i class="fas fa-trash mr-2"></i> {{$empresa->ocorrenciasLixeira()}}</a>                                
                             </td>
                         </tr>
                         @endforeach

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ocorrencia extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'ocorrencias';
 
@@ -22,6 +23,8 @@ class Ocorrencia extends Model
         'update_user'
     ];
 
+    protected $dates = ['deleted_at']; // marca a coluna como uma data
+
     /**
      * Scopes
     */
@@ -34,7 +37,7 @@ class Ocorrencia extends Model
     {
         return $query->where('status', 0);
     }
-
+    
     /**
      * Relacionamentos
     */

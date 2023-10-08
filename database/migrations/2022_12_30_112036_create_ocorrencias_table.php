@@ -24,6 +24,7 @@ class CreateOcorrenciasTable extends Migration
             $table->integer('update_user')->nullable();
             $table->string('template')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('colaborador')->references('id')->on('users')->onDelete('CASCADE');

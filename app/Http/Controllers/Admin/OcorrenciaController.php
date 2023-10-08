@@ -55,6 +55,24 @@ class OcorrenciaController extends Controller
             'empresa' => $empresaView
         ]);
     }
+
+    public function lixeira($empresa)
+    {
+        if(Auth::user()->editor == 1){
+            return Redirect::route('colaborador');
+        }
+
+        $ocorrencias = Ocorrencia::orderBy('created_at', 'DESC')
+                    ->orderBy('status', 'ASC')
+                    ->where('empresa', $empresa)
+                    ->onlyTrashed()
+                    ->paginate(50);
+        $empresaView = Empresa::where('id', $empresa)->first();
+        return view('admin.ocorrencias.lixeira', [
+            'ocorrencias' => $ocorrencias,
+            'empresa' => $empresaView
+        ]);
+    }
     
     public function view($ocorrencia)
     {
