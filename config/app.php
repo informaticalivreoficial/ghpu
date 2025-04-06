@@ -168,7 +168,7 @@ return [
          * Package Service Providers...
          */
         Weidner\Goutte\GoutteServiceProvider::class,
-        //Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
