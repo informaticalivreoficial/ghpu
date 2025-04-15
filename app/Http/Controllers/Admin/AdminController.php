@@ -67,20 +67,18 @@ class AdminController extends Controller
                 ->get()
                 ->sum('views');
 
-        //Analitcs
-        $visitasHoje = Analytics::fetchMostVisitedPages(Period::days(1));
-        $visitas365 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(5));
-        $top_browser = Analytics::fetchTopBrowsers(Period::months(5));
-
+         //Analitcs
+         $visitasHoje = Analytics::fetchMostVisitedPages(Period::days(1));
         
-        $analyticsData = Analytics::performQuery(
-            Period::months(5),
-               'ga:sessions',
-               [
-                   'metrics' => 'ga:sessions, ga:visitors, ga:pageviews',
-                   'dimensions' => 'ga:yearMonth'
-               ]
-         );         
+         $visitas365 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(5));
+         
+         $top_browser = Analytics::fetchTopBrowsers(Period::months(5), 10);
+ 
+         $analyticsData = Analytics::get(
+                 Period::months(6), 
+                 metrics: ['totalUsers', 'sessions', 'screenPageViews'], 
+                 dimensions: ['month']
+         );       
         
         return view('admin.dashboard',[
             'time' => $time,
