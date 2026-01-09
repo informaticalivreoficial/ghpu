@@ -17,19 +17,16 @@ class Seo
 
     public function __construct()
     {
-        //chama as configuracoes do site
-        //$Configuracoes = Configuracoes::where('id', '1')->first();
-
         $this->optimizer = new Optimizer();
         $this->optimizer->openGraph(
-            'Hotel São Charbel' ?? 'Informática Livre',
+            'Hotel São Charbel',
             'pt_BR',
             'article'
         )->publisher(
-            env('CLIENT_SOCIAL_FACEBOOK_PAGE'),
-            env('CLIENT_SOCIAL_FACEBOOK_AUTHOR')
+            env('CLIENT_SOCIAL_FACEBOOK_PAGE') ?? "",   // Garante string se o env for null
+            env('CLIENT_SOCIAL_FACEBOOK_AUTHOR') ?? "" // Garante string se o env for null
         )->facebook(
-            env('CLIENT_SOCIAL_FACEBOOK_APP')
+            env('CLIENT_SOCIAL_FACEBOOK_APP') ?? ""    // Garante string se o env for null
         );
     }
 
