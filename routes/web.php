@@ -28,11 +28,11 @@ use App\Http\Controllers\Web\WebController;
 Route::group(['namespace' => 'Web', 'as' => 'web.'], function () {
 
     /** Página Inicial */
-    // Route::get('/', function () {
-    //     return redirect()->to('https://sistema.ghpu.com.br/login');
-    // });
-    Route::get('/', [WebController::class, 'home'])->name('home');
-    Route::match(['post', 'get'], '/fetchCity', [WebController::class, 'fetchCity'])->name('fetchCity');
+    Route::get('/', function () {
+        return redirect()->to('https://sistema.ghpu.com.br/login');
+    });
+    //Route::get('/', [WebController::class, 'home'])->name('home');
+    //Route::match(['post', 'get'], '/fetchCity', [WebController::class, 'fetchCity'])->name('fetchCity');
 
     //**************************** Emails ********************************************/
     Route::get('/atendimento', [WebController::class, 'atendimento'])->name('atendimento');
@@ -197,6 +197,6 @@ Route::prefix('admin')->middleware('auth')->group( function(){
 
 });
 
-Route::post('/loginrg', [AuthController::class, 'loginRg'])->name('login.do');
+//Route::post('/loginrg', [AuthController::class, 'loginRg'])->name('login.do');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Auth::routes();
