@@ -30,18 +30,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //URL::forceScheme('https');
-        Schema::defaultStringLength(191);
-        Blade::aliasComponent('admin.components.message', 'message');
+        // Schema::defaultStringLength(191);
+        // Blade::aliasComponent('admin.components.message', 'message');
         
-        //Links 
-        $Links = Menu::whereNull('id_pai')->orderby('created_at', 'DESC')
-                        ->available()
-                        ->get();        
-        View()->share('Links', $Links);
+        // //Links 
+        // $Links = Menu::whereNull('id_pai')->orderby('created_at', 'DESC')
+        //                 ->available()
+        //                 ->get();        
+        // View()->share('Links', $Links);
 
-        $configuracoes = \App\Models\Configuracoes::find(1); 
-        View()->share('configuracoes', $configuracoes);
+        // $configuracoes = \App\Models\Configuracoes::find(1); 
+        // View()->share('configuracoes', $configuracoes);
         
-        Paginator::useBootstrap();
+        // Paginator::useBootstrap();
     }
 }
